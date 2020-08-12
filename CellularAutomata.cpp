@@ -12,9 +12,11 @@ void CellularAutomata::init()
 {
 }
 
-void CellularAutomata::update()
+particle_t CellularAutomata::update()
 {
+	return particle_t();
 }
+
 
 void CellularAutomata::draw()
 {

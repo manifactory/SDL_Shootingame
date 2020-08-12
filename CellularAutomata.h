@@ -21,7 +21,7 @@ public:
 	~CellularAutomata();
 
 	void init();
-	void update();
+	particle_t update();
 	void draw();
 
 private:
