@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\Engine">
+      <UniqueIdentifier>{3f9003de-4094-4990-aae1-0b177e81317c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Engine">
+      <UniqueIdentifier>{e72f330a-3eb0-4028-b5d0-2f9b7efc495b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Engine\Core">
+      <UniqueIdentifier>{b9ff702b-f440-4396-8c7c-ee104a47a193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Core">
+      <UniqueIdentifier>{5d60a030-62c2-4b61-8b3a-133244ba985f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Manager">
+      <UniqueIdentifier>{93756471-e51f-44c6-8b00-337fb11a9a15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Engine\Manager">
+      <UniqueIdentifier>{b1668b2a-ec05-424c-a30d-dcebecd7e99e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,11 +42,20 @@
     <ClCompile Include="CellularAutomata.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>소스 파일\Engine\Core</Filter>
+    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Engine\Manager</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>소스 파일\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>소스 파일\Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -38,11 +65,20 @@
     <ClInclude Include="CellularAutomata.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="TextureManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>헤더 파일\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>헤더 파일\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>헤더 파일\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>헤더 파일\Engine\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
