@@ -54,7 +54,7 @@ int InputManager::getKeyState(int sdlk)
 	}
 }
 
-SDL_Point InputManager::getMouseState()
+SDL_Point InputManager::getMousePos()
 {
 	SDL_Point mousePos;
 	SDL_GetMouseState(&mousePos.x, &mousePos.y);

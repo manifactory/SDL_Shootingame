@@ -1,11 +1,13 @@
 #pragma once
 #include "Scene.h"
+#include "Animation.h"
+
 class MainScene :
 	public Scene
 {
 private:
 	Sprite* Title;
-	Sprite* PlayButton;
+	Animation* PlayButton;
 	Sprite* SettingButton;
 public:
 	MainScene();

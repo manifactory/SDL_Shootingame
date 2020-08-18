@@ -22,5 +22,5 @@ public:
 	void keyStateUpdate();
 	int getKeyState(int sdlk);
 
-	SDL_Point getMouseState();
+	SDL_Point getMousePos();
 };

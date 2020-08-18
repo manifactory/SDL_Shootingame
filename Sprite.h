@@ -1,25 +1,19 @@
 #pragma once
 #include "TextureManager.h"
-#include "Transform.h"
+#include "Object.h"
 
-class Sprite :public Transform
+class Sprite :public Object
 {
 private:
 	SDL_Texture* tex;
-	SDL_Rect srcRect, destRect;
+	
 
 
 public:
 	Sprite(const char* path);
 	~Sprite();
 
-	void Update();
 	void Render();
-
-	SDL_Rect getRect();
-
-	bool intersectRect(Sprite* target);
-	bool pointInRect(SDL_Point* p);
 
 };
 
