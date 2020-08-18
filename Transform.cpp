@@ -4,12 +4,17 @@ Transform::Transform()
 {
 	position = new Vector2D();
 	velocity = new Vector2D();
+	size = new Vector2D();
 }
 
 Transform::~Transform()
 {
 	delete(position);
+	position = nullptr;
 	delete(velocity);
+	velocity = nullptr;
+	delete(size);
+	size = nullptr;
 }
 
 void Transform::setPos(float x, float y)
@@ -32,4 +37,16 @@ void Transform::setVelo(float x, float y)
 Vector2D* Transform::getVelo()
 {
 	return velocity;
+}
+
+void Transform::setSize(float x, float y)
+{
+	size->x = x;
+	size->y = y;
+}
+
+
+Vector2D* Transform::getSize()
+{
+	return size;
 }

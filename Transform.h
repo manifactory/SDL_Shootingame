@@ -3,7 +3,7 @@
 class Transform
 {
 private:
-	Vector2D *position, *velocity;
+	Vector2D *position, *velocity, *size;
 
 public:
 	Transform();
@@ -14,5 +14,8 @@ public:
 
 	void setVelo(float x, float y);
 	Vector2D* getVelo();
+
+	void setSize(float x, float y);
+	Vector2D* getSize();
 };
 
