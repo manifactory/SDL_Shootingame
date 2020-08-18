@@ -31,6 +31,18 @@
     <Filter Include="헤더 파일\Engine\Manager">
       <UniqueIdentifier>{b1668b2a-ec05-424c-a30d-dcebecd7e99e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Engine\Object">
+      <UniqueIdentifier>{5cbe73a8-41d0-4244-83b0-c789bc9fddc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Engine\Object">
+      <UniqueIdentifier>{4e5109ba-ea9d-4946-b9f3-d89a848dcbf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Scene">
+      <UniqueIdentifier>{928228d4-81c1-4acb-a7c2-adfaeaa137e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scene">
+      <UniqueIdentifier>{cb923324-8c4c-42dc-837b-518db25ae982}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,9 +54,6 @@
     <ClCompile Include="CellularAutomata.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2D.cpp">
-      <Filter>소스 파일\Engine\Core</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>소스 파일\Engine\Manager</Filter>
     </ClCompile>
@@ -54,8 +63,23 @@
     <ClCompile Include="Transform.cpp">
       <Filter>소스 파일\Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>소스 파일\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>소스 파일\Engine\Object</Filter>
+    </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>소스 파일\Engine\Core</Filter>
+      <Filter>소스 파일\Engine\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,14 +95,26 @@
     <ClInclude Include="SceneManager.h">
       <Filter>헤더 파일\Engine\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2D.h">
-      <Filter>헤더 파일\Engine\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>헤더 파일\Engine\Core</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>헤더 파일\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>헤더 파일\Engine\Object</Filter>
+    </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>헤더 파일\Engine\Core</Filter>
+      <Filter>헤더 파일\Engine\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

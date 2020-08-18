@@ -1,7 +1,16 @@
+#include "stdafx.h"
 #include "Game.h"
+#include "Sprite.h"
+#include "MainScene.h"
+#include "GameScene.h"
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
+
+InputManager* inputManager;
+SceneManager* sceneManager;
+
+Scene* mainScene;
 
 Game::Game()
 {}
@@ -38,6 +47,13 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		isRunning = false;
 	}
+	
+	inputManager = new InputManager(&Game::event);
+	sceneManager = new SceneManager();
+
+	mainScene = new MainScene();
+
+	sceneManager->ChangeScene(mainScene);
 }
 
 void Game::handleEvents()
@@ -51,17 +67,21 @@ void Game::handleEvents()
 	default:
 		break;
 	}
+
+	inputManager->keyEventUpdate();
 }
 
 void Game::update()
 {
-
+	inputManager->keyStateUpdate();
+	sceneManager->Update();
 }
 
 void Game::render()
 {
-	//SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderClear(renderer);
+	sceneManager->Render();
 	SDL_RenderPresent(renderer);
 }
 

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "textureManager.h"
 
 SDL_Texture* textureManager::loadTexture(const char* path)

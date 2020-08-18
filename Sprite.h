@@ -8,16 +8,18 @@ private:
 	SDL_Texture* tex;
 	SDL_Rect srcRect, destRect;
 
-	float size;
 
 public:
-	Sprite(const char* path, int x, int y, int w, int h);
+	Sprite(const char* path);
 	~Sprite();
 
 	void Update();
 	void Render();
 
-	void setSize(float size);
+	SDL_Rect getRect();
+
+	bool intersectRect(Sprite* target);
+	bool pointInRect(SDL_Point* p);
 
 };
 

@@ -1,15 +1,16 @@
+#include "stdafx.h"
 #include "Sprite.h"
 
-Sprite::Sprite(const char* path, int x, int y, int w, int h)
+Sprite::Sprite(const char* path)
 {
 	tex = textureManager::loadTexture(path);
 
 	int width, height;
 
-	SDL_QueryTexture(tex, NULL, NULL, &width, &height);
+	SDL_QueryTexture(tex, NULL, NULL, &height, &width);
 
 	Transform::setSize((float)width, (float)height);
-	Transform::setPos(x, y);
+	Transform::setPos(0, 0);
 	Transform::setVelo(0, 0);
 
 	srcRect.w = Transform::getSize()->x;
@@ -30,15 +31,15 @@ void Sprite::Update()
 {
 	Transform::update();
 
-	srcRect.h = Transform::getSize()->x;;
-	srcRect.w = Transform::getSize()->y;;
+	srcRect.h = (int)Transform::getSize()->x;;
+	srcRect.w = (int)Transform::getSize()->y;;
 	srcRect.x = 0;
 	srcRect.y = 0;
 
 	destRect.h = srcRect.h;
 	destRect.w = srcRect.w;
-	destRect.x = Transform::getPos()->x;
-	destRect.y = Transform::getPos()->y;
+	destRect.x = (int)Transform::getPos()->x;
+	destRect.y = (int)Transform::getPos()->y;
 }
 
 void Sprite::Render()
@@ -46,7 +47,19 @@ void Sprite::Render()
 	textureManager::Draw(tex, srcRect, destRect);
 }
 
-void Sprite::setSize(float size)
+SDL_Rect Sprite::getRect()
 {
-	Transform::setSize(Transform::getSize()->x * size, Transform::getSize()->y * size);
+	return destRect;
+}
+
+
+bool Sprite::intersectRect(Sprite* target)
+{
+	SDL_Rect r;
+	return SDL_IntersectRect(&this->destRect, &target->destRect, &r);
+}
+
+bool Sprite::pointInRect(SDL_Point* p)
+{
+	return SDL_PointInRect(p, &this->destRect);
 }

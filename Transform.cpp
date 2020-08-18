@@ -1,10 +1,11 @@
+#include "stdafx.h"
 #include "Transform.h"
 
 Transform::Transform()
 {
-	position = new Vector2D();
-	velocity = new Vector2D();
-	size = new Vector2D();
+	position = new SDL_Point();
+	velocity = new SDL_Point();
+	size = new SDL_Point();
 }
 
 Transform::~Transform()
@@ -29,7 +30,7 @@ void Transform::setPos(float x, float y)
 	position->y = y;
 }
 
-Vector2D* Transform::getPos()
+SDL_Point* Transform::getPos()
 {
 	return position;
 }
@@ -40,7 +41,7 @@ void Transform::setVelo(float x, float y)
 	velocity->y = y;
 }
 
-Vector2D* Transform::getVelo()
+SDL_Point* Transform::getVelo()
 {
 	return velocity;
 }
@@ -52,7 +53,7 @@ void Transform::setSize(float x, float y)
 }
 
 
-Vector2D* Transform::getSize()
+SDL_Point* Transform::getSize()
 {
 	return size;
 }
