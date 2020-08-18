@@ -17,6 +17,12 @@ Transform::~Transform()
 	size = nullptr;
 }
 
+void Transform::update()
+{
+	position->x += velocity->x;
+	position->y += velocity->y;
+}
+
 void Transform::setPos(float x, float y)
 {
 	position->x = x;

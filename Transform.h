@@ -9,6 +9,8 @@ public:
 	Transform();
 	~Transform();
 
+	void update();
+
 	void setPos(float x, float y);
 	Vector2D* getPos();
 

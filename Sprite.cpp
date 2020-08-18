@@ -9,6 +9,8 @@ Sprite::Sprite(const char* path, int x, int y, int w, int h)
 	SDL_QueryTexture(tex, NULL, NULL, &width, &height);
 
 	Transform::setSize((float)width, (float)height);
+	Transform::setPos(x, y);
+	Transform::setVelo(0, 0);
 
 	srcRect.w = Transform::getSize()->x;
 	srcRect.h = Transform::getSize()->y;
@@ -17,9 +19,6 @@ Sprite::Sprite(const char* path, int x, int y, int w, int h)
 	destRect.w = srcRect.w;
 	destRect.h = srcRect.h;
 	destRect.x = destRect.y = 0;
-
-	Transform::setPos(x, y);
-	Transform::setVelo(0, 0);
 }
 
 Sprite::~Sprite()
@@ -29,6 +28,8 @@ Sprite::~Sprite()
 
 void Sprite::Update()
 {
+	Transform::update();
+
 	srcRect.h = Transform::getSize()->x;;
 	srcRect.w = Transform::getSize()->y;;
 	srcRect.x = 0;
