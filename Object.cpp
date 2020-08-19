@@ -7,8 +7,7 @@ Object::Object()
 	Transform::setPos(0, 0);
 	Transform::setVelo(0, 0);
 
-	srcRect.w = Transform::getSize()->x;
-	srcRect.h = Transform::getSize()->y;
+	srcRect.w = srcRect.h = 0;
 	srcRect.x = srcRect.y = 0;
 
 	destRect.w = srcRect.w;
@@ -30,15 +29,11 @@ void Object::Update()
 		this->setSize(parent->getSize());
 	}
 
-	srcRect.h = (int)getSize()->x;;
-	srcRect.w = (int)getSize()->y;;
-	srcRect.x = 0;
-	srcRect.y = 0;
+	destRect.w = getSize()->x;
+	destRect.h = getSize()->y;
+	destRect.x = (int)getPos()->x - destRect.w / 2;
+	destRect.y = (int)getPos()->y - destRect.h / 2;
 
-	destRect.h = srcRect.h;
-	destRect.w = srcRect.w;
-	destRect.x = (int)getPos()->x - srcRect.w / 2;
-	destRect.y = (int)getPos()->y - srcRect.h / 2;
 
 	for (auto& child : childList) {
 		child->Update();

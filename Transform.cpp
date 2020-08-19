@@ -14,12 +14,9 @@ Transform::Transform()
 
 Transform::~Transform()
 {
-	delete(position);
-	position = nullptr;
-	delete(velocity);
-	velocity = nullptr;
-	delete(size);
-	size = nullptr;
+	SAFE_DELETE(position);
+	SAFE_DELETE(velocity);
+	SAFE_DELETE(size);
 }
 
 void Transform::update()

@@ -84,3 +84,13 @@ void Audio::Stop()
 		Mix_HaltChannel(-1);
 	}
 }
+
+void Audio::setVolume(int v)
+{
+	if (isMusic) {
+		Mix_VolumeMusic(v);
+	}
+	else {
+		Mix_Volume(-1, v);
+	}
+}

@@ -42,5 +42,6 @@ void MainScene::Update()
 
 void MainScene::Render()
 {
+	SDL_SetRenderDrawColor(Game::renderer, 255, 200, 0, 255);
 	PlayButton->Render();
 }

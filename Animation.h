@@ -11,10 +11,6 @@ private:
 
     float timeChecker;
 
-    float beforeTime;
-    float currentTime;
-    float dTime;
-
     std::vector<Sprite*> spriteVector;
 public:
     bool isPlay;
@@ -29,6 +25,4 @@ public:
 
     void SetFrame(int frame);
     int GetFrame();
-
-    void updateDeltaTime();
 };

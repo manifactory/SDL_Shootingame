@@ -6,6 +6,8 @@ private:
 	SDL_Point* position, * velocity, * size;
 
 public:
+	
+
 	Transform();
 	~Transform();
 

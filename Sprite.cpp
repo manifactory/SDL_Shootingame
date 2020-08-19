@@ -7,16 +7,16 @@ Sprite::Sprite(const char* path)
 
 	int width, height;
 
-	SDL_QueryTexture(tex, NULL, NULL, &height, &width);
+	SDL_QueryTexture(tex, NULL, NULL, &width, &height);
 
 	Transform::setSize((float)width, (float)height);
 
-	srcRect.w = Transform::getSize()->x;
-	srcRect.h = Transform::getSize()->y;
+	srcRect.w = width;
+	srcRect.h = height;
 	srcRect.x = srcRect.y = 0;
 
-	destRect.w = srcRect.w;
-	destRect.h = srcRect.h;
+	destRect.w = getSize()->x;
+	destRect.h = getSize()->y;
 	destRect.x = destRect.y = 0;
 }
 

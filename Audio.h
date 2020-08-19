@@ -16,5 +16,6 @@ public:
 	void Play();
 	void Pause();
 	void Stop();
+	void setVolume(int v);
 };
 
