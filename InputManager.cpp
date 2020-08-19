@@ -60,3 +60,8 @@ SDL_Point InputManager::getMousePos()
 	SDL_GetMouseState(&mousePos.x, &mousePos.y);
 	return mousePos;
 }
+
+SDL_Event* InputManager::getEventPoll()
+{
+	return eventPool;
+}

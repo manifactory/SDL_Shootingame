@@ -23,4 +23,6 @@ public:
 	int getKeyState(int sdlk);
 
 	SDL_Point getMousePos();
+
+	SDL_Event* getEventPoll();
 };

@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)SDL2_image-2.0.5\include;$(ProjectDir)SDL2-2.0.12\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)SDL2_image-2.0.5\lib\x86;$(ProjectDir)SDL2-2.0.12\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)SDL2_image-2.0.5\include;$(ProjectDir)SDL2_mixer-2.0.4\include;$(ProjectDir)SDL2-2.0.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)SDL2_mixer-2.0.4\lib\x86;$(ProjectDir)SDL2_image-2.0.5\lib\x86;$(ProjectDir)SDL2-2.0.12\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -91,14 +91,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)SDL2_image-2.0.5\include;$(ProjectDir)SDL2-2.0.12\include;$(IncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)SDL2_mixer-2.0.4\include;$(ProjectDir)SDL2_image-2.0.5\include;$(ProjectDir)SDL2-2.0.12\include;$(IncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)SDL2_image-2.0.5\include;$(ProjectDir)SDL2-2.0.12\include;$(IncludePath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)SDL2_mixer-2.0.4\include;$(ProjectDir)SDL2_image-2.0.5\include;$(ProjectDir)SDL2-2.0.12\include;$(IncludePath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="CellularAutomata.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="CellularAutomata.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />

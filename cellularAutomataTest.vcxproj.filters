@@ -87,6 +87,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>소스 파일\Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Audio.cpp">
+      <Filter>소스 파일\Engine\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>헤더 파일\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>헤더 파일\Engine\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
