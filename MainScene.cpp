@@ -11,7 +11,7 @@ MainScene::MainScene()
 	PlayButton->AddFrame("assets/P_button2.png");
 	PlayButton->AddFrame("assets/P_button1.png");
 	PlayButton->isPlay = false;
-	PlayButton->setSize(PlayButton->getSize()->x * 5.0f, PlayButton->getSize()->y * 5.0f);
+	PlayButton->setSize(PlayButton->getSize()->x * 10.0f, PlayButton->getSize()->y * 10.0f);
 	PlayButton->setPos(WindowWidth / 2, WindowHeight / 2);
 }
 

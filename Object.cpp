@@ -3,6 +3,8 @@
 
 Object::Object()
 {
+	parent = nullptr;
+
 	Transform::setSize(0, 0);
 	Transform::setPos(0, 0);
 	Transform::setVelo(0, 0);
