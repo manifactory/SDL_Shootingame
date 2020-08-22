@@ -28,7 +28,6 @@ void Object::Update()
 	if (parent != nullptr) {
 		this->setPos(parent->getPos());
 		this->setVelo(parent->getVelo());
-		this->setSize(parent->getSize());
 	}
 
 	destRect.w = getSize()->x;

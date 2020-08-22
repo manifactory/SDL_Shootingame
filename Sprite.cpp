@@ -23,6 +23,7 @@ Sprite::Sprite(const char* path)
 Sprite::~Sprite()
 {
 	SDL_DestroyTexture(tex);
+	tex = nullptr;
 }
 
 
