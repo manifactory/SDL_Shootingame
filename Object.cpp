@@ -5,10 +5,6 @@ Object::Object()
 {
 	parent = nullptr;
 
-	Transform::setSize(0, 0);
-	Transform::setPos(0, 0);
-	Transform::setVelo(0, 0);
-
 	srcRect.w = srcRect.h = 0;
 	srcRect.x = srcRect.y = 0;
 
@@ -28,12 +24,13 @@ void Object::Update()
 	if (parent != nullptr) {
 		this->setPos(parent->getPos());
 		this->setVelo(parent->getVelo());
+		this->setSIzeMul(parent->getSIzeMul());
 	}
 
-	destRect.w = getSize()->x;
-	destRect.h = getSize()->y;
-	destRect.x = (int)getPos()->x - destRect.w / 2;
-	destRect.y = (int)getPos()->y - destRect.h / 2;
+	destRect.w = getSize()->x * getSIzeMul()->x;
+	destRect.h = getSize()->y * getSIzeMul()->y;
+	destRect.x = getPos()->x - destRect.w / 2;
+	destRect.y = getPos()->y - destRect.h / 2;
 
 
 	for (auto& child : childList) {

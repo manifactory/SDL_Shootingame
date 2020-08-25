@@ -4,12 +4,14 @@
 
 int main(int argc, char* argv[])
 {
-
-	const int FPS = 60;
+	std::string frequency;
+	const int FPS = 120;
 	const int frameDelay = 1000 / FPS;
 
 	Uint32 frameStart;
 	int frameTime;
+
+	int countframe=0;
 
 	Game game;
 	game.init("teestWindow", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WindowWidth, WindowHeight, 0);

@@ -45,18 +45,18 @@ void GameScene::Update()
 	timer += dTIme->getDeltaTime();
 
 	if (inputManager->getKeyState(SDLK_a) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x - 3.0f, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo()->x - 2.0f, Player->getVelo()->y);
 	}
 	if (inputManager->getKeyState(SDLK_d) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x + 3.0f, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo()->x + 2.0f, Player->getVelo()->y);
 	}
 	if (inputManager->getKeyState(SDLK_w) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - 3.0f);
+		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - 2.0f);
 	}
 	if (inputManager->getKeyState(SDLK_s) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + 3.0f);
+		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + 2.0f);
 	}
-	Player->setVelo(Player->getVelo()->x * 0.9f, Player->getVelo()->y * 0.9f);
+	Player->setVelo(Player->getVelo()->x * 0.98f, Player->getVelo()->y * 0.98f);
 
 	Player->Update();
 
@@ -102,6 +102,10 @@ void GameScene::Update()
 
 				SAFE_DELETE(*iter);
 				iter=obstacleList.erase(iter);
+			}
+			else if(Player->intersectRect(&(*iter)->getRect())){
+				SAFE_DELETE(*iter);
+				iter = obstacleList.erase(iter);
 			}
 			else {
 				for (auto iter_b = bulletList.begin(); iter_b != bulletList.end(); iter_b++) {

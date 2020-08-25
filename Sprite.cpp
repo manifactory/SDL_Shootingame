@@ -13,11 +13,9 @@ Sprite::Sprite(const char* path)
 
 	srcRect.w = width;
 	srcRect.h = height;
-	srcRect.x = srcRect.y = 0;
 
 	destRect.w = getSize()->x;
 	destRect.h = getSize()->y;
-	destRect.x = destRect.y = 0;
 }
 
 Sprite::~Sprite()

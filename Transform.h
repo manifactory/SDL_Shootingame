@@ -3,7 +3,7 @@
 class Transform
 {
 private:
-	SDL_Point* position, * velocity, * size;
+	SDL_Point* position, * velocity, * size, *sizeM;
 
 public:
 	
@@ -24,5 +24,10 @@ public:
 	void setSize(float x, float y);
 	void setSize(SDL_Point* p);
 	SDL_Point* getSize();
+
+	void setSIzeMul(float m);
+	void setSIzeMul(float x, float y);
+	void setSIzeMul(SDL_Point* p);
+	SDL_Point* getSIzeMul();
 };
 
