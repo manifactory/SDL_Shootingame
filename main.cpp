@@ -5,7 +5,7 @@
 int main(int argc, char* argv[])
 {
 	std::string frequency;
-	const int FPS = 120;
+	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
 
 	Uint32 frameStart;
