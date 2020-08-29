@@ -14,3 +14,5 @@
 extern SceneManager* sceneManager;
 extern InputManager* inputManager;
 
+extern double DeltaTime;
+

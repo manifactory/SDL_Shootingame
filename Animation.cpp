@@ -1,12 +1,9 @@
 #include "stdafx.h"
 #include "Animation.h"
-#include "DeltaTime.h"
 
-DeltaTime* dTime;
 
 Animation::Animation(int fps)
 {
-	dTime = new DeltaTime();
 
 	isPlay = true;
 
@@ -19,8 +16,6 @@ Animation::~Animation()
 	for (auto& sprite : spriteVector) {
 		SAFE_DELETE(sprite);
 	}
-
-	SAFE_DELETE(dTime);
 }
 
 void Animation::Render()
@@ -36,9 +31,7 @@ void Animation::Render()
 void Animation::Update() 
 {
 	Object::Update();
-
-	dTime->updateDeltaTime();
-	timeChecker += dTime->getDeltaTime();
+	timeChecker += DeltaTime;
 
 	if(isPlay)
 		if (timeChecker > 1.f / fps) {

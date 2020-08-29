@@ -24,8 +24,8 @@ Transform::~Transform()
 
 void Transform::update()
 {
-	position->x += velocity->x;
-	position->y += velocity->y;
+	position->x += velocity->x * DeltaTime;
+	position->y += velocity->y * DeltaTime;
 }
 
 void Transform::setPos(float x, float y)

@@ -1,19 +1,14 @@
 #include "stdafx.h"
 #include "GameScene.h"
-#include "DeltaTime.h"
 #include <Windows.h>
 
 Sprite* Player;
 Audio* bgm;
 Audio* shoot_sound;
 
-DeltaTime* dTIme;
-
 GameScene::GameScene()
 {
 	srand(GetTickCount());
-
-	dTIme = new DeltaTime();
 	timer = obstacleTimer = bulletTimer = 0;
 
 	Player = new Sprite("assets/player.png");
@@ -28,7 +23,6 @@ GameScene::~GameScene()
 {
 	SAFE_DELETE(Player);
 	//SAFE_DELETE(bgm);
-	SAFE_DELETE(dTIme);
 
 	for (auto& obstacle : obstacleList) {
 		SAFE_DELETE(obstacle);
@@ -41,22 +35,21 @@ GameScene::~GameScene()
 
 void GameScene::Update()
 {
-	dTIme->updateDeltaTime();
-	timer += dTIme->getDeltaTime();
+	timer += DeltaTime;
 
 	if (inputManager->getKeyState(SDLK_a) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x - 2.0f, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo()->x - 2000.0f * DeltaTime, Player->getVelo()->y);
 	}
 	if (inputManager->getKeyState(SDLK_d) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x + 2.0f, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo()->x + 2000.0f * DeltaTime, Player->getVelo()->y);
 	}
 	if (inputManager->getKeyState(SDLK_w) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - 2.0f);
+		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - 2000.0f * DeltaTime);
 	}
 	if (inputManager->getKeyState(SDLK_s) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + 2.0f);
+		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + 2000.0f * DeltaTime);
 	}
-	Player->setVelo(Player->getVelo()->x * 0.98f, Player->getVelo()->y * 0.98f);
+	//Player->setVelo(Player->getVelo()->x * 0.98f, Player->getVelo()->y * 0.98f);
 
 	Player->Update();
 
@@ -77,25 +70,24 @@ void GameScene::Update()
 		Player->setPos(Player->getPos()->x, 0 + Player->getSize()->y/2);
 	}
 
-	if (timer - obstacleTimer > 400.0f) {
+	if (timer - obstacleTimer > 0.04f) {
 		obstacleTimer = timer;
 		obstacleList.push_back(new Sprite("assets/a.png"));
 		obstacleList.back()->setPos(rand() % WindowWidth, 0.0f);
 		obstacleList.back()->setSize(obstacleList.back()->getSize()->x * 0.1f, obstacleList.back()->getSize()->y * 0.1f);
-		obstacleList.back()->setVelo(0, (rand() % 3000)/1000 +1);
+		obstacleList.back()->setVelo(0, 200);
 	}
 
 	if (inputManager->getKeyState(SDLK_SPACE) == KEY_ON) {
-		if (timer - bulletTimer > 50.0f) {
+		if (timer - bulletTimer > 0.05f) {
 			bulletTimer = timer;
 			bulletList.push_back(new Sprite("assets/splashbullet.png"));
 			bulletList.back()->setPos(Player->getPos());
-			bulletList.back()->setVelo(0, -20.0f);
+			bulletList.back()->setVelo(0, -400);
 		}
 	}
 	if (obstacleList.size() != 0)
 		for (auto iter = obstacleList.begin(); iter != obstacleList.end(); iter++) {
-			(*iter)->setVelo(-Player->getVelo()->x / ((*iter)->getVelo()->y + 5), (*iter)->getVelo()->y);
 			(*iter)->Update();
 
 			if (((*iter)->getPos()->y > WindowHeight + (*iter)->getSize()->y)) {
