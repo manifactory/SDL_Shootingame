@@ -38,20 +38,19 @@ void GameScene::Update()
 	timer += DeltaTime;
 
 	if (inputManager->getKeyState(SDLK_a) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x - 2000.0f * DeltaTime, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo()->x - 50.0f, Player->getVelo()->y);
 	}
 	if (inputManager->getKeyState(SDLK_d) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x + 2000.0f * DeltaTime, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo()->x + 50.0f, Player->getVelo()->y);
 	}
 	if (inputManager->getKeyState(SDLK_w) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - 2000.0f * DeltaTime);
+		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - 50.0f);
 	}
 	if (inputManager->getKeyState(SDLK_s) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + 2000.0f * DeltaTime);
+		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + 50.0f);
 	}
-	//Player->setVelo(Player->getVelo()->x * 0.98f, Player->getVelo()->y * 0.98f);
-
-	Player->Update();
+	Player->setVelo(Player->getVelo()->x * 0.98f, Player->getVelo()->y * 0.98f);
+	std::cout << Player->getVelo()->x << ", " << Player->getVelo()->y << std::endl;
 
 	if (Player->getPos()->x + Player->getSize()->x/2 > WindowWidth) {
 		Player->setVelo(0, Player->getVelo()->y);
@@ -70,7 +69,9 @@ void GameScene::Update()
 		Player->setPos(Player->getPos()->x, 0 + Player->getSize()->y/2);
 	}
 
-	if (timer - obstacleTimer > 0.04f) {
+
+	
+	if (timer - obstacleTimer > 0.4f) {
 		obstacleTimer = timer;
 		obstacleList.push_back(new Sprite("assets/a.png"));
 		obstacleList.back()->setPos(rand() % WindowWidth, 0.0f);
@@ -83,7 +84,7 @@ void GameScene::Update()
 			bulletTimer = timer;
 			bulletList.push_back(new Sprite("assets/splashbullet.png"));
 			bulletList.back()->setPos(Player->getPos());
-			bulletList.back()->setVelo(0, -400);
+			bulletList.back()->setVelo(0, -1200);
 		}
 	}
 	if (obstacleList.size() != 0)

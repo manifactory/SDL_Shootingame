@@ -24,6 +24,7 @@ public:
     void RemoveChild(Object* child);
 
     bool intersectRect(SDL_Rect* target);
+    bool pointInRect(Vector2D* p);
     bool pointInRect(SDL_Point* p);
 
     SDL_Rect getRect();
