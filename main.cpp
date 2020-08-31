@@ -19,7 +19,6 @@ int main(int argc, char* argv[])
 
 	while (game.running())
 	{
-		LAST = NOW;
 		QueryPerformanceCounter(&NOW);
 		DeltaTime = (double)(NOW.QuadPart - LAST.QuadPart) / (double)frequency.QuadPart;
 		//std::cout << DeltaTime << std::endl;
@@ -27,6 +26,7 @@ int main(int argc, char* argv[])
 		game.handleEvents();
 		game.update();
 		game.render();
+		LAST = NOW;
 	}
 
 	game.clean();

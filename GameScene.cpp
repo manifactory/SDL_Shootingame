@@ -6,6 +6,8 @@ Sprite* Player;
 Audio* bgm;
 Audio* shoot_sound;
 
+int shootHoleIsLeft = 1;
+
 GameScene::GameScene()
 {
 	srand(GetTickCount());
@@ -38,19 +40,19 @@ void GameScene::Update()
 	timer += DeltaTime;
 
 	if (inputManager->getKeyState(SDLK_a) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x - 50.0f, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo()->x - 10.0f, Player->getVelo()->y);
 	}
 	if (inputManager->getKeyState(SDLK_d) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x + 50.0f, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo()->x + 10.0f, Player->getVelo()->y);
 	}
 	if (inputManager->getKeyState(SDLK_w) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - 50.0f);
+		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - 10.0f);
 	}
 	if (inputManager->getKeyState(SDLK_s) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + 50.0f);
+		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + 10.0f);
 	}
-	Player->setVelo(Player->getVelo()->x * 0.98f, Player->getVelo()->y * 0.98f);
-	std::cout << Player->getVelo()->x << ", " << Player->getVelo()->y << std::endl;
+	Player->setVelo(Player->getVelo()->x * 0.99f, Player->getVelo()->y * 0.99f);
+	//std::cout << Player->getVelo()->x << ", " << Player->getVelo()->y << std::endl;
 
 	if (Player->getPos()->x + Player->getSize()->x/2 > WindowWidth) {
 		Player->setVelo(0, Player->getVelo()->y);
@@ -83,8 +85,10 @@ void GameScene::Update()
 		if (timer - bulletTimer > 0.05f) {
 			bulletTimer = timer;
 			bulletList.push_back(new Sprite("assets/splashbullet.png"));
-			bulletList.back()->setPos(Player->getPos());
-			bulletList.back()->setVelo(0, -1200);
+			bulletList.back()->setPos(Player->getPos()->x + 15.0f * shootHoleIsLeft, Player->getPos()->y-20.0f);
+			Player->setVelo(Player->getVelo()->x + 500.0f * -shootHoleIsLeft, Player->getVelo()->y +20.0f);
+			shootHoleIsLeft *= -1;
+			bulletList.back()->setVelo(0, -2000 + rand() % 50);
 		}
 	}
 	if (obstacleList.size() != 0)
