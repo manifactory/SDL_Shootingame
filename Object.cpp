@@ -67,7 +67,7 @@ bool Object::intersectRect(SDL_Rect* target)
 	return SDL_IntersectRect(&this->destRect, target, &r);
 }
 
-bool Object::pointInRect(Vector2D* p)
+bool Object::pointInRect(SDL_FPoint* p)
 {
 	SDL_Point p1;
 	p1.x = p->x;

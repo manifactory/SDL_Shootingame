@@ -12,14 +12,16 @@ int main(int argc, char* argv[])
 	QueryPerformanceCounter(&LAST);
 	QueryPerformanceFrequency(&frequency);
 
+	std::cout<<(double)frequency.QuadPart << std::endl;
+
 	Game game;
 	game.init("teestWindow", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WindowWidth, WindowHeight, 0);
 
 	while (game.running())
 	{
+		LAST = NOW;
 		QueryPerformanceCounter(&NOW);
 		DeltaTime = (double)(NOW.QuadPart - LAST.QuadPart) / (double)frequency.QuadPart;
-		LAST = NOW;
 		//std::cout << DeltaTime << std::endl;
 
 		game.handleEvents();

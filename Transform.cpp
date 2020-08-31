@@ -3,10 +3,10 @@
 
 Transform::Transform()
 {
-	position = new Vector2D();
-	velocity = new Vector2D();
-	size = new Vector2D();
-	sizeM = new Vector2D();
+	position = new SDL_FPoint();
+	velocity = new SDL_FPoint();
+	size = new SDL_FPoint();
+	sizeM = new SDL_FPoint();
 
 	position->x = position->y = 0;
 	velocity->x = velocity->y = 0;
@@ -34,13 +34,13 @@ void Transform::setPos(float x, float y)
 	position->y = y;
 }
 
-void Transform::setPos(Vector2D* p)
+void Transform::setPos(SDL_FPoint* p)
 {
 	position->x = p->x;
 	position->y = p->y;
 }
 
-Vector2D* Transform::getPos()
+SDL_FPoint* Transform::getPos()
 {
 	return position;
 }
@@ -51,13 +51,13 @@ void Transform::setVelo(float x, float y)
 	velocity->y = y;
 }
 
-void Transform::setVelo(Vector2D* p)
+void Transform::setVelo(SDL_FPoint* p)
 {
 	velocity->x = p->x;
 	velocity->y = p->y;
 }
 
-Vector2D* Transform::getVelo()
+SDL_FPoint* Transform::getVelo()
 {
 	return velocity;
 }
@@ -68,14 +68,14 @@ void Transform::setSize(float x, float y)
 	size->y = y;
 }
 
-void Transform::setSize(Vector2D* p)
+void Transform::setSize(SDL_FPoint* p)
 {
 	size->x = p->x;
 	size->y = p->y;
 }
 
 
-Vector2D* Transform::getSize()
+SDL_FPoint* Transform::getSize()
 {
 	return size;
 }
@@ -92,12 +92,12 @@ void Transform::setSIzeMul(float x, float y)
 	sizeM->y = y;
 }
 
-void Transform::setSIzeMul(Vector2D* p)
+void Transform::setSIzeMul(SDL_FPoint* p)
 {
 	sizeM = p;
 }
 
-Vector2D* Transform::getSIzeMul()
+SDL_FPoint* Transform::getSIzeMul()
 {
 	return sizeM;
 }

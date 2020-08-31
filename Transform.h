@@ -1,9 +1,9 @@
 #pragma once
-#include "Vector2D.h"
+#include "SDL.h"
 class Transform
 {
 private:
-	Vector2D* position, * velocity, * size, *sizeM;
+	SDL_FPoint* position, * velocity, * size, *sizeM;
 
 public:
 	
@@ -14,20 +14,20 @@ public:
 	void update();
 
 	void setPos(float x, float y);
-	void setPos(Vector2D* p);
-	Vector2D* getPos();
+	void setPos(SDL_FPoint* p);
+	SDL_FPoint* getPos();
 
 	void setVelo(float x, float y);
-	void setVelo(Vector2D* p);
-	Vector2D* getVelo();
+	void setVelo(SDL_FPoint* p);
+	SDL_FPoint* getVelo();
 
 	void setSize(float x, float y);
-	void setSize(Vector2D* p);
-	Vector2D* getSize();
+	void setSize(SDL_FPoint* p);
+	SDL_FPoint* getSize();
 
 	void setSIzeMul(float m);
 	void setSIzeMul(float x, float y);
-	void setSIzeMul(Vector2D* p);
-	Vector2D* getSIzeMul();
+	void setSIzeMul(SDL_FPoint* p);
+	SDL_FPoint* getSIzeMul();
 };
 
