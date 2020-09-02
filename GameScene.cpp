@@ -139,7 +139,7 @@ void GameScene::Update()
 
 void GameScene::Render()
 {
-	SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
 	for (auto bullet : bulletList)
 	{
 		bullet->Render();
