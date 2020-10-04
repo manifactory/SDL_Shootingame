@@ -35,6 +35,7 @@ void MainScene::Update()
 		if (inputManager->getEventPoll()->type == SDL_MOUSEBUTTONUP)
 		{
 			PlayButton->SetFrame(1);
+			SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 			sceneManager->ChangeScene(new GameScene());
 		}
 	}
