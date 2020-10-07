@@ -16,16 +16,14 @@ InputManager::~InputManager()
 {
 }
 
-
-
 void InputManager::keyEventUpdate()
 {
 	if (eventPool->type == SDL_KEYDOWN) {
-		if (eventPool->key.keysym.sym <= 123)
+		if (eventPool->key.keysym.sym < 123)
 			keyEvent[eventPool->key.keysym.sym] = true;
 	}
 	if (eventPool->type == SDL_KEYUP) {
-		if (eventPool->key.keysym.sym <= 123)
+		if (eventPool->key.keysym.sym < 123)
 			keyEvent[eventPool->key.keysym.sym] = false;
 	}
 }
