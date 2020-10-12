@@ -8,6 +8,14 @@ Audio* shoot_sound;
 
 int shootHoleIsLeft = 1;
 
+float moveSpeed = 5000.0f;
+float moveDrag = 2.0f;
+
+float shootInterval = 0.01f;
+float bulletSpeed = 20.0f;
+
+float obstacleInterval = 0.1f;
+
 GameScene::GameScene()
 {
 	srand(GetTickCount());
@@ -40,18 +48,18 @@ void GameScene::Update()
 	timer += DeltaTime;
 
 	if (inputManager->getKeyState(SDLK_a) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x - 10.0f, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo()->x - moveSpeed * DeltaTime, Player->getVelo()->y);
 	}
 	if (inputManager->getKeyState(SDLK_d) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x + 10.0f, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo()->x + moveSpeed * DeltaTime, Player->getVelo()->y);
 	}
 	if (inputManager->getKeyState(SDLK_w) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - 10.0f);
+		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - moveSpeed * DeltaTime);
 	}
 	if (inputManager->getKeyState(SDLK_s) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + 10.0f);
+		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + moveSpeed * DeltaTime);
 	}
-	Player->setVelo(Player->getVelo()->x * 0.99f, Player->getVelo()->y * 0.99f);
+	Player->setVelo(Player->Lerp(Player->getVelo()->x, 0.0f, DeltaTime * moveDrag), Player->Lerp(Player->getVelo()->y, 0.0f, DeltaTime*moveDrag));
 	//std::cout << Player->getVelo()->x << ", " << Player->getVelo()->y << std::endl;
 
 	if (Player->getPos()->x + Player->getSize()->x/2 > WindowWidth) {
@@ -73,7 +81,7 @@ void GameScene::Update()
 
 
 	
-	if (timer - obstacleTimer > 0.4f) {
+	if (timer - obstacleTimer > obstacleInterval) {
 		obstacleTimer = timer;
 		obstacleList.push_back(new Sprite("assets/a.png"));
 		obstacleList.back()->setPos(rand() % WindowWidth, 0.0f);
@@ -82,11 +90,11 @@ void GameScene::Update()
 	}
 
 	if (inputManager->getKeyState(SDLK_SPACE) == KEY_ON) {
-		if (timer - bulletTimer > 0.05f) {
+		if (timer - bulletTimer > shootInterval) {
 			bulletTimer = timer;
 			bulletList.push_back(new Sprite("assets/splashbullet.png"));
 			bulletList.back()->setPos(Player->getPos()->x + 15.0f * shootHoleIsLeft, Player->getPos()->y-20.0f);
-			Player->setVelo(Player->getVelo()->x + 500.0f * -shootHoleIsLeft, Player->getVelo()->y +20.0f);
+			//Player->setVelo(Player->getVelo()->x + 500.0f * -shootHoleIsLeft, Player->getVelo()->y +20.0f);
 			shootHoleIsLeft *= -1;
 			bulletList.back()->setVelo(0, -2000 + rand() % 50);
 		}

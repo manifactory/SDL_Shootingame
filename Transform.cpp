@@ -24,8 +24,8 @@ Transform::~Transform()
 
 void Transform::update()
 {
-	position->x += ((double)velocity->x * DeltaTime);
-	position->y += ((double)velocity->y * DeltaTime);
+	position->x += ((float)velocity->x * (float)DeltaTime);
+	position->y += ((float)velocity->y * (float)DeltaTime);
 }
 
 void Transform::setPos(float x, float y)
@@ -102,3 +102,7 @@ SDL_FPoint* Transform::getSIzeMul()
 	return sizeM;
 }
 
+float Transform::Lerp(float value1, float value2, float amount)
+{
+	return float(value1 + ((float)(value2 - value1) * amount));
+}

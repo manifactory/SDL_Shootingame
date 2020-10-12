@@ -29,5 +29,7 @@ public:
 	void setSIzeMul(float x, float y);
 	void setSIzeMul(SDL_FPoint* p);
 	SDL_FPoint* getSIzeMul();
+
+	float Lerp(float value1, float value2, float amount);
 };
 
