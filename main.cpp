@@ -3,6 +3,9 @@
 #include "Windows.h"
 
 double DeltaTime;
+float Timer;
+
+float s_Timer = 0.0f;
 
 int main(int argc, char* argv[])
 {
@@ -25,7 +28,12 @@ int main(int argc, char* argv[])
 		DeltaTime = (double)interval / (double)Frequency.QuadPart;
 		beforeInterval = currentInterval;
 
-		std::cout << DeltaTime << std::endl;
+		Timer += (float)DeltaTime;
+		if ((Timer - s_Timer) >= 1.0f)
+		{
+			std::cout << "FPS : " << 1.0f / (float)DeltaTime << std::endl;
+			s_Timer = Timer;
+		}
 
 		game.handleEvents();
 		game.update();

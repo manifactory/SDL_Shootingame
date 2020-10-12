@@ -9,7 +9,7 @@ Audio* shoot_sound;
 int shootHoleIsLeft = 1;
 
 float moveSpeed = 5000.0f;
-float moveDrag = 2.0f;
+float moveDrag = 5.0f;
 
 float shootInterval = 0.01f;
 float bulletSpeed = 20.0f;
