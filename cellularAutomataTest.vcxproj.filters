@@ -93,6 +93,9 @@
     <ClCompile Include="Vector2D.cpp">
       <Filter>소스 파일\Engine\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>소스 파일\Engine\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -138,6 +141,9 @@
       <Filter>헤더 파일\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Vector2D.h">
+      <Filter>헤더 파일\Engine\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
       <Filter>헤더 파일\Engine\Object</Filter>
     </ClInclude>
   </ItemGroup>
