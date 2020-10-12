@@ -62,6 +62,7 @@ SDL_FPoint* Transform::getVelo()
 	return velocity;
 }
 
+
 void Transform::setSize(float x, float y)
 {
 	size->x = x;

@@ -1,3 +1,4 @@
+#pragma once
 #include "Sprite.h"
 #include <vector>
 
@@ -7,15 +8,17 @@ class Animation :
 private:
     int maxFrame;
     int currentFrame;
-    int fps;
 
+    float frameTime;
     float timeChecker;
 
     std::vector<Sprite*> spriteVector;
 public:
     bool isPlay;
+    bool isRepeat;
 
-    Animation(int fps);
+    Animation();
+    Animation(float frameTime);
     ~Animation();
 
     void Update();

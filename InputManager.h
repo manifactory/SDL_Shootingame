@@ -11,7 +11,6 @@ class InputManager
 private:
 	SDL_Event* eventPool;
 	bool keyEvent[123];
-
 	bool beforeKey[123];
 	bool currentKey[123];
 public:

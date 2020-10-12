@@ -6,8 +6,6 @@ class Sprite :public Object
 {
 private:
 	SDL_Texture* tex;
-	
-
 
 public:
 	Sprite(const char* path);

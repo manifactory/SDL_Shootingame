@@ -2,13 +2,14 @@
 #include "Scene.h"
 #include "Audio.h"
 #include <list>
+#include "Animation.h"
 
 class GameScene :
 	public Scene
 {
 private:
 	std::list<Sprite*> bulletList;
-	std::list<Sprite*> obstacleList;
+	std::list<Animation*> obstacleList;
 
 	float timer;
 	float obstacleTimer;

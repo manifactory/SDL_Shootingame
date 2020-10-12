@@ -11,8 +11,8 @@ int shootHoleIsLeft = 1;
 float moveSpeed = 5000.0f;
 float moveDrag = 5.0f;
 
-float shootInterval = 0.01f;
-float bulletSpeed = 20.0f;
+float shootInterval = 0.05f;
+float bulletSpeed = 2000.0f;
 
 float obstacleInterval = 0.1f;
 
@@ -59,7 +59,7 @@ void GameScene::Update()
 	if (inputManager->getKeyState(SDLK_s) == KEY_ON) {
 		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + moveSpeed * DeltaTime);
 	}
-	Player->setVelo(Player->Lerp(Player->getVelo()->x, 0.0f, DeltaTime * moveDrag), Player->Lerp(Player->getVelo()->y, 0.0f, DeltaTime*moveDrag));
+	Player->setVelo(Player->Lerp(Player->getVelo()->x, 0.0f, DeltaTime * moveDrag), Player->Lerp(Player->getVelo()->y, 0.0f, DeltaTime * moveDrag));
 	//std::cout << Player->getVelo()->x << ", " << Player->getVelo()->y << std::endl;
 
 	if (Player->getPos()->x + Player->getSize()->x/2 > WindowWidth) {
@@ -83,10 +83,15 @@ void GameScene::Update()
 	
 	if (timer - obstacleTimer > obstacleInterval) {
 		obstacleTimer = timer;
-		obstacleList.push_back(new Sprite("assets/a.png"));
-		obstacleList.back()->setPos(rand() % WindowWidth, 0.0f);
-		obstacleList.back()->setSize(obstacleList.back()->getSize()->x * 0.1f, obstacleList.back()->getSize()->y * 0.1f);
-		obstacleList.back()->setVelo(0, 200);
+		obstacleList.push_back(new Animation(0.1f));
+		obstacleList.back()->AddFrame("assets/a.png");
+		obstacleList.back()->AddFrame("assets/b.png");
+		obstacleList.back()->isPlay = false;
+		
+		float O_Size = ((float)(rand() % 100)/500.0f + 0.1f);
+		obstacleList.back()->setSize(obstacleList.back()->getSize()->x * O_Size, obstacleList.back()->getSize()->y * O_Size);
+		obstacleList.back()->setPos(rand() % WindowWidth, - obstacleList.back()->getSize()->y);
+		obstacleList.back()->setVelo(rand() % 20 - 10 , rand() % 100 + 100);
 	}
 
 	if (inputManager->getKeyState(SDLK_SPACE) == KEY_ON) {
@@ -96,7 +101,7 @@ void GameScene::Update()
 			bulletList.back()->setPos(Player->getPos()->x + 15.0f * shootHoleIsLeft, Player->getPos()->y-20.0f);
 			//Player->setVelo(Player->getVelo()->x + 500.0f * -shootHoleIsLeft, Player->getVelo()->y +20.0f);
 			shootHoleIsLeft *= -1;
-			bulletList.back()->setVelo(0, -2000 + rand() % 50);
+			bulletList.back()->setVelo(0.0f, -bulletSpeed);
 		}
 	}
 	if (obstacleList.size() != 0)
@@ -106,17 +111,25 @@ void GameScene::Update()
 			if (((*iter)->getPos()->y > WindowHeight + (*iter)->getSize()->y)) {
 
 				SAFE_DELETE(*iter);
-				iter=obstacleList.erase(iter);
+				iter = obstacleList.erase(iter);
+
 			}
 			else if(Player->intersectRect(&(*iter)->getRect())){
+
 				SAFE_DELETE(*iter);
 				iter = obstacleList.erase(iter);
+
 			}
 			else {
 				for (auto iter_b = bulletList.begin(); iter_b != bulletList.end(); iter_b++) {
 					if ((*iter)->intersectRect(&(*iter_b)->getRect())) {
-						SAFE_DELETE(*iter);
-						iter = obstacleList.erase(iter);
+
+						(*iter)->SetFrame(1);
+						(*iter)->isPlay = true;
+
+						SAFE_DELETE(*iter_b);
+						iter_b = bulletList.erase(iter_b);
+
 						break;
 					}
 				}

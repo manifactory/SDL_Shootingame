@@ -2,13 +2,15 @@
 #include "Animation.h"
 
 
-Animation::Animation(int fps)
+Animation::Animation(float frameTime)
 {
-
 	isPlay = true;
+	isRepeat = false;
 
-	this->fps = fps;
 	maxFrame = currentFrame = 0;
+
+	this->frameTime = frameTime;
+	timeChecker = 0.0f;
 }
 
 Animation::~Animation()
@@ -31,16 +33,23 @@ void Animation::Render()
 void Animation::Update() 
 {
 	Object::Update();
+
 	timeChecker += DeltaTime;
 
 	if(isPlay)
-		if (timeChecker > 1.f / fps) {
-			timeChecker = 0;
+		if (timeChecker > frameTime) {
+
+			timeChecker = 0.0f;
 			currentFrame++;
-			if (currentFrame == maxFrame) {
-				currentFrame = 0;
-			}
+
 		}
+
+	if (currentFrame == maxFrame) {
+
+		currentFrame = 0;
+		isPlay = isRepeat ? true : false;
+
+	}
 }
 
 void Animation::AddFrame(const char* path)

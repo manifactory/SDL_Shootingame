@@ -11,8 +11,8 @@ Sprite::Sprite(const char* path)
 
 	Transform::setSize((float)width, (float)height);
 
-	srcRect.w = width;
-	srcRect.h = height;
+	srcRect.w = (float)width;
+	srcRect.h = (float)height;
 
 	destRect.w = getSize()->x;
 	destRect.h = getSize()->y;

@@ -6,7 +6,7 @@
 
 MainScene::MainScene()
 {
-	PlayButton = new Animation(0);
+	PlayButton = new Animation(0.0f);
 	PlayButton->AddFrame("assets/P_button3.png");
 	PlayButton->AddFrame("assets/P_button2.png");
 	PlayButton->AddFrame("assets/P_button1.png");
