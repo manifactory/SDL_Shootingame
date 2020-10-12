@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 		Timer += (float)DeltaTime;
 		if ((Timer - s_Timer) >= 1.0f)
 		{
-			std::cout << "FPS : " << (1.0f / (float)(DeltaTime * 1000000))*1000.0f << std::endl;
+			std::cout << "FPS : " << (1.0f / (float)(DeltaTime * 1000))*1000.0f << std::endl;
 			s_Timer = Timer;
 		}
 
