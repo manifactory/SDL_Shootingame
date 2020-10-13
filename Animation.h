@@ -11,13 +11,13 @@ private:
 
     float frameTime;
     float timeChecker;
-
-    std::vector<Sprite*> spriteVector;
+    
 public:
     bool isPlay;
     bool isRepeat;
 
-    Animation();
+    std::vector<Sprite*> spriteVector;
+
     Animation(float frameTime);
     ~Animation();
 

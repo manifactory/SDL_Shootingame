@@ -57,10 +57,10 @@ void Animation::AddFrame(const char* path)
 	spriteVector.push_back(new Sprite(path));
 	
 	AddChild(spriteVector[maxFrame]);
-	
+
 	if (maxFrame == 0)
 	{
-		this->setSize(spriteVector[maxFrame]->getSize());
+		this->setSize(spriteVector[0]->getSize());
 	}
 
 	maxFrame++;

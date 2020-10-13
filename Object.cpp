@@ -24,13 +24,14 @@ void Object::Update()
 	if (parent != nullptr) {
 		this->setPos(parent->getPos());
 		this->setVelo(parent->getVelo());
+		this->setSize(parent->getSize());
 		this->setSIzeMul(parent->getSIzeMul());
 	}
 
-	destRect.w = getSize()->x * getSIzeMul()->x;
-	destRect.h = getSize()->y * getSIzeMul()->y;
-	destRect.x = getPos()->x - destRect.w / 2;
-	destRect.y = getPos()->y - destRect.h / 2;
+	destRect.w = getSize().x * getSIzeMul().x;
+	destRect.h = getSize().y * getSIzeMul().y;
+	destRect.x = getPos().x - destRect.w / 2;
+	destRect.y = getPos().y - destRect.h / 2;
 
 
 	for (auto& child : childList) {

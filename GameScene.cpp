@@ -23,7 +23,7 @@ GameScene::GameScene()
 
 	Player = new Sprite("assets/player.png");
 	Player->setPos(WindowWidth/2,WindowHeight/2);
-	Player->setSize(Player->getSize()->x*0.06f, Player->getSize()->y*0.06f);
+	Player->setSize(Player->getSize().x*0.06f, Player->getSize().y*0.06f);
 
 	//bgm = new Audio("assets/Taishi - bluefieldcreator (152kbit_Opus).wav", true, 2048);
 	//bgm->Play();
@@ -48,35 +48,35 @@ void GameScene::Update()
 	timer += DeltaTime;
 
 	if (inputManager->getKeyState(SDLK_a) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x - moveSpeed * DeltaTime, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo().x - moveSpeed * DeltaTime, Player->getVelo().y);
 	}
 	if (inputManager->getKeyState(SDLK_d) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x + moveSpeed * DeltaTime, Player->getVelo()->y);
+		Player->setVelo(Player->getVelo().x + moveSpeed * DeltaTime, Player->getVelo().y);
 	}
 	if (inputManager->getKeyState(SDLK_w) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y - moveSpeed * DeltaTime);
+		Player->setVelo(Player->getVelo().x, Player->getVelo().y - moveSpeed * DeltaTime);
 	}
 	if (inputManager->getKeyState(SDLK_s) == KEY_ON) {
-		Player->setVelo(Player->getVelo()->x, Player->getVelo()->y + moveSpeed * DeltaTime);
+		Player->setVelo(Player->getVelo().x, Player->getVelo().y + moveSpeed * DeltaTime);
 	}
-	Player->setVelo(Player->Lerp(Player->getVelo()->x, 0.0f, DeltaTime * moveDrag), Player->Lerp(Player->getVelo()->y, 0.0f, DeltaTime * moveDrag));
-	//std::cout << Player->getVelo()->x << ", " << Player->getVelo()->y << std::endl;
+	Player->setVelo(Player->Lerp(Player->getVelo().x, 0.0f, DeltaTime * moveDrag), Player->Lerp(Player->getVelo().y, 0.0f, DeltaTime * moveDrag));
+	//std::cout << Player->getVelo().x << ", " << Player->getVelo().y << std::endl;
 
-	if (Player->getPos()->x + Player->getSize()->x/2 > WindowWidth) {
-		Player->setVelo(0, Player->getVelo()->y);
-		Player->setPos(WindowWidth - Player->getSize()->x/2, Player->getPos()->y);
+	if (Player->getPos().x + Player->getSize().x/2 > WindowWidth) {
+		Player->setVelo(0, Player->getVelo().y);
+		Player->setPos(WindowWidth - Player->getSize().x/2, Player->getPos().y);
 	}
-	if (Player->getPos()->x - Player->getSize()->x / 2 < 0) {
-		Player->setVelo(0, Player->getVelo()->y);
-		Player->setPos(0+ Player->getSize()->x / 2, Player->getPos()->y);
+	if (Player->getPos().x - Player->getSize().x / 2 < 0) {
+		Player->setVelo(0, Player->getVelo().y);
+		Player->setPos(0+ Player->getSize().x / 2, Player->getPos().y);
 	}
-	if (Player->getPos()->y + Player->getSize()->y / 2 > WindowHeight) {
-		Player->setVelo(Player->getVelo()->x, 0);
-		Player->setPos(Player->getPos()->x, WindowHeight - Player->getSize()->y/2);
+	if (Player->getPos().y + Player->getSize().y / 2 > WindowHeight) {
+		Player->setVelo(Player->getVelo().x, 0);
+		Player->setPos(Player->getPos().x, WindowHeight - Player->getSize().y/2);
 	}
-	if (Player->getPos()->y - Player->getSize()->y / 2 < 0) {
-		Player->setVelo(Player->getVelo()->x, 0);
-		Player->setPos(Player->getPos()->x, 0 + Player->getSize()->y/2);
+	if (Player->getPos().y - Player->getSize().y / 2 < 0) {
+		Player->setVelo(Player->getVelo().x, 0);
+		Player->setPos(Player->getPos().x, 0 + Player->getSize().y/2);
 	}
 
 
@@ -89,8 +89,8 @@ void GameScene::Update()
 		obstacleList.back()->isPlay = false;
 		
 		float O_Size = ((float)(rand() % 100)/500.0f + 0.1f);
-		obstacleList.back()->setSize(obstacleList.back()->getSize()->x * O_Size, obstacleList.back()->getSize()->y * O_Size);
-		obstacleList.back()->setPos(rand() % WindowWidth, - obstacleList.back()->getSize()->y);
+		obstacleList.back()->setSIzeMul(O_Size, O_Size);
+		obstacleList.back()->setPos(rand() % WindowWidth, -obstacleList.back()->getSize().y * obstacleList.back()->getSIzeMul().y / 2);
 		obstacleList.back()->setVelo(rand() % 20 - 10 , rand() % 100 + 100);
 	}
 
@@ -98,8 +98,8 @@ void GameScene::Update()
 		if (timer - bulletTimer > shootInterval) {
 			bulletTimer = timer;
 			bulletList.push_back(new Sprite("assets/splashbullet.png"));
-			bulletList.back()->setPos(Player->getPos()->x + 15.0f * shootHoleIsLeft, Player->getPos()->y-20.0f);
-			//Player->setVelo(Player->getVelo()->x + 500.0f * -shootHoleIsLeft, Player->getVelo()->y +20.0f);
+			bulletList.back()->setPos(Player->getPos().x + 15.0f * shootHoleIsLeft, Player->getPos().y-20.0f);
+			//Player->setVelo(Player->getVelo().x + 500.0f * -shootHoleIsLeft, Player->getVelo().y +20.0f);
 			shootHoleIsLeft *= -1;
 			bulletList.back()->setVelo(0.0f, -bulletSpeed);
 		}
@@ -108,7 +108,7 @@ void GameScene::Update()
 		for (auto iter = obstacleList.begin(); iter != obstacleList.end(); iter++) {
 			(*iter)->Update();
 
-			if (((*iter)->getPos()->y > WindowHeight + (*iter)->getSize()->y)) {
+			if (((*iter)->getPos().y > WindowHeight + (*iter)->getSize().y * (*iter)->getSIzeMul().y) || ((*iter)->getPos().y < - (*iter)->getSize().y * (*iter)->getSIzeMul().y)) {
 
 				SAFE_DELETE(*iter);
 				iter = obstacleList.erase(iter);
@@ -126,6 +126,7 @@ void GameScene::Update()
 
 						(*iter)->SetFrame(1);
 						(*iter)->isPlay = true;
+						(*iter)->setVelo((*iter)->getVelo().x, (*iter)->getVelo().y - 50.0f);
 
 						SAFE_DELETE(*iter_b);
 						iter_b = bulletList.erase(iter_b);
@@ -143,7 +144,7 @@ void GameScene::Update()
 		for (auto iter = bulletList.begin(); iter != bulletList.end(); iter++) {
 			(*iter)->Update();
 
-			if ((*iter)->getPos()->y < 0 - (*iter)->getSize()->y) {
+			if ((*iter)->getPos().y < 0 - (*iter)->getSize().y) {
 
 				SAFE_DELETE(*iter);
 				iter=bulletList.erase(iter);
