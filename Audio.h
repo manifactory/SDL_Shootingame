@@ -9,6 +9,8 @@ private:
 	Mix_Chunk* wave;
 
 	bool isMusic;
+	int this_channel;
+
 public:
 	Audio(const char* path, bool isMusic, int chunkSize);
 	~Audio();

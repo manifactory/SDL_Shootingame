@@ -3,16 +3,18 @@
 #include <Windows.h>
 
 Sprite* Player;
+
 Audio* bgm;
 Audio* shoot_sound;
 Audio* hit_sound;
+Audio* Explosion_sound;
 
 int shootHoleIsLeft = 1;
 
 float moveSpeed = 5000.0f;
 float moveDrag = 5.0f;
 
-float shootInterval = 0.1f;
+float shootInterval = 0.02f;
 float bulletSpeed = 2000.0f;
 
 float obstacleInterval = 0.1f;
@@ -30,8 +32,11 @@ GameScene::GameScene()
 	bgm->Play();
 
 	shoot_sound = new Audio("assets/shoot1.wav", false, 2048);
+
 	hit_sound = new Audio("assets/hit.wav", false, 2048);
 	hit_sound->setVolume(50);
+
+	Explosion_sound = new Audio("assets/Explosion.wav", false, 2048);
 }
 
 GameScene::~GameScene()
@@ -88,7 +93,7 @@ void GameScene::Update()
 	
 	if (timer - obstacleTimer > obstacleInterval) {
 		obstacleTimer = timer;
-		obstacleList.push_back(new Animation(0.2f));
+		obstacleList.push_back(new Obstacle(0.2f));
 		obstacleList.back()->AddFrame("assets/a.png");
 		obstacleList.back()->AddFrame("assets/b.png");
 		obstacleList.back()->isPlay = false;
@@ -104,7 +109,7 @@ void GameScene::Update()
 			bulletTimer = timer;
 			bulletList.push_back(new Sprite("assets/splashbullet.png"));
 			bulletList.back()->setPos(Player->getPos().x + 15.0f * shootHoleIsLeft, Player->getPos().y-20.0f);
-			//Player->setVelo(Player->getVelo().x + 500.0f * -shootHoleIsLeft, Player->getVelo().y +20.0f);
+			Player->setVelo(Player->getVelo().x + 500.0f * -shootHoleIsLeft, Player->getVelo().y +20.0f);
 			shootHoleIsLeft *= -1;
 			bulletList.back()->setVelo(0.0f, -bulletSpeed);
 			shoot_sound->Play();
@@ -135,6 +140,12 @@ void GameScene::Update()
 						(*iter)->SetFrame(1);
 						(*iter)->isPlay = true;
 						(*iter)->setVelo((*iter)->getVelo().x, (*iter)->getVelo().y - 50.0f);
+						if ((*iter)->getDamage(1)<=0)
+						{
+							Explosion_sound->Play();
+							SAFE_DELETE(*iter);
+							iter = obstacleList.erase(iter);
+						}
 
 						SAFE_DELETE(*iter_b);
 						iter_b = bulletList.erase(iter_b);

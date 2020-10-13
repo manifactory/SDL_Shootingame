@@ -21,6 +21,18 @@ Audio::Audio(const char* path, bool isMusic, int chunkSize)
 		wave = Mix_LoadWAV(path);
 	}
 
+	std::cout << path << '\n';
+	if (!isMusic)
+	{
+		sound_channel++;
+		std::cout << sound_channel << std::endl;
+		this_channel = sound_channel;
+	}
+	else
+	{
+		std::cout << "is Music" << std::endl;
+	}
+
 }
 
 Audio::~Audio()
@@ -34,6 +46,8 @@ Audio::~Audio()
 	}
 
 	Mix_CloseAudio();
+
+	sound_channel--;
 }
 
 void Audio::Play()
@@ -42,7 +56,7 @@ void Audio::Play()
 			Mix_PlayMusic(music, -1);
 	}
 	else {
-			Mix_PlayChannel(-1, wave, 0);
+			Mix_PlayChannel(this_channel, wave, 0);
 	}
 }
 
@@ -63,14 +77,14 @@ void Audio::Pause()
 	}
 	else {
 		if (Mix_Playing(-1)) {
-			Mix_PlayChannel(-1, wave, 0);
+			Mix_PlayChannel(this_channel, wave, 0);
 		}
 		else if (Mix_Paused(-1))
 		{
-			Mix_Resume(-1);
+			Mix_Resume(this_channel);
 		}
 		else {
-			Mix_Pause(-1);
+			Mix_Pause(this_channel);
 		}
 	}
 }
@@ -81,7 +95,7 @@ void Audio::Stop()
 		Mix_HaltMusic();
 	}
 	else {
-		Mix_HaltChannel(-1);
+		Mix_HaltChannel(this_channel);
 	}
 }
 
@@ -91,6 +105,6 @@ void Audio::setVolume(int v)
 		Mix_VolumeMusic(v);
 	}
 	else {
-		Mix_Volume(-1, v);
+		Mix_Volume(this_channel, v);
 	}
 }

@@ -12,6 +12,8 @@ SceneManager* sceneManager;
 
 Scene* mainScene;
 
+int sound_channel = 0;
+
 Game::Game()
 {}
 Game::~Game()
