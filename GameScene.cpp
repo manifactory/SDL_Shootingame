@@ -5,13 +5,14 @@
 Sprite* Player;
 Audio* bgm;
 Audio* shoot_sound;
+Audio* hit_sound;
 
 int shootHoleIsLeft = 1;
 
 float moveSpeed = 5000.0f;
 float moveDrag = 5.0f;
 
-float shootInterval = 0.05f;
+float shootInterval = 0.1f;
 float bulletSpeed = 2000.0f;
 
 float obstacleInterval = 0.1f;
@@ -25,14 +26,18 @@ GameScene::GameScene()
 	Player->setPos(WindowWidth/2,WindowHeight/2);
 	Player->setSize(Player->getSize().x*0.06f, Player->getSize().y*0.06f);
 
-	//bgm = new Audio("assets/Taishi - bluefieldcreator (152kbit_Opus).wav", true, 2048);
-	//bgm->Play();
+	bgm = new Audio("assets/Taishi - Reverie for Another Sphere.ogg", true, 2048);
+	bgm->Play();
+
+	shoot_sound = new Audio("assets/shoot1.wav", false, 2048);
+	hit_sound = new Audio("assets/hit.wav", false, 2048);
+	hit_sound->setVolume(50);
 }
 
 GameScene::~GameScene()
 {
 	SAFE_DELETE(Player);
-	//SAFE_DELETE(bgm);
+	SAFE_DELETE(bgm);
 
 	for (auto& obstacle : obstacleList) {
 		SAFE_DELETE(obstacle);
@@ -83,7 +88,7 @@ void GameScene::Update()
 	
 	if (timer - obstacleTimer > obstacleInterval) {
 		obstacleTimer = timer;
-		obstacleList.push_back(new Animation(0.1f));
+		obstacleList.push_back(new Animation(0.2f));
 		obstacleList.back()->AddFrame("assets/a.png");
 		obstacleList.back()->AddFrame("assets/b.png");
 		obstacleList.back()->isPlay = false;
@@ -91,7 +96,7 @@ void GameScene::Update()
 		float O_Size = ((float)(rand() % 100)/500.0f + 0.1f);
 		obstacleList.back()->setSIzeMul(O_Size, O_Size);
 		obstacleList.back()->setPos(rand() % WindowWidth, -obstacleList.back()->getSize().y * obstacleList.back()->getSIzeMul().y / 2);
-		obstacleList.back()->setVelo(rand() % 20 - 10 , rand() % 100 + 100);
+		obstacleList.back()->setVelo(rand() % 20 - 10 , rand() % 500 + 100);
 	}
 
 	if (inputManager->getKeyState(SDLK_SPACE) == KEY_ON) {
@@ -102,6 +107,7 @@ void GameScene::Update()
 			//Player->setVelo(Player->getVelo().x + 500.0f * -shootHoleIsLeft, Player->getVelo().y +20.0f);
 			shootHoleIsLeft *= -1;
 			bulletList.back()->setVelo(0.0f, -bulletSpeed);
+			shoot_sound->Play();
 		}
 	}
 	if (obstacleList.size() != 0)
@@ -115,6 +121,8 @@ void GameScene::Update()
 
 			}
 			else if(Player->intersectRect(&(*iter)->getRect())){
+
+				hit_sound->Play();
 
 				SAFE_DELETE(*iter);
 				iter = obstacleList.erase(iter);
