@@ -22,7 +22,7 @@ float obstacleInterval = 0.1f;
 GameScene::GameScene()
 {
 	srand(GetTickCount());
-	timer = obstacleTimer = bulletTimer = 0;
+	Timer = obstacleTimer = bulletTimer = 0;
 
 	Player = new Sprite("assets/player.png");
 	Player->setPos(WindowWidth/2,WindowHeight/2);
@@ -55,7 +55,6 @@ GameScene::~GameScene()
 
 void GameScene::Update()
 {
-	timer += DeltaTime;
 
 	if (inputManager->getKeyState(SDLK_a) == KEY_ON) {
 		Player->setVelo(Player->getVelo().x - moveSpeed * DeltaTime, Player->getVelo().y);
@@ -69,7 +68,7 @@ void GameScene::Update()
 	if (inputManager->getKeyState(SDLK_s) == KEY_ON) {
 		Player->setVelo(Player->getVelo().x, Player->getVelo().y + moveSpeed * DeltaTime);
 	}
-	Player->setVelo(Player->Lerp(Player->getVelo().x, 0.0f, DeltaTime * moveDrag), Player->Lerp(Player->getVelo().y, 0.0f, DeltaTime * moveDrag));
+	Player->setVelo(Player->Lerp(Player->getVelo(), {0.0f, 0.0f}, DeltaTime * moveDrag));
 	//std::cout << Player->getVelo().x << ", " << Player->getVelo().y << std::endl;
 
 	if (Player->getPos().x + Player->getSize().x/2 > WindowWidth) {
@@ -91,8 +90,8 @@ void GameScene::Update()
 
 
 	
-	if (timer - obstacleTimer > obstacleInterval) {
-		obstacleTimer = timer;
+	if (Timer - obstacleTimer > obstacleInterval) {
+		obstacleTimer = Timer;
 		obstacleList.push_back(new Obstacle(0.2f));
 		obstacleList.back()->AddFrame("assets/a.png");
 		obstacleList.back()->AddFrame("assets/b.png");
@@ -105,8 +104,8 @@ void GameScene::Update()
 	}
 
 	if (inputManager->getKeyState(SDLK_SPACE) == KEY_ON) {
-		if (timer - bulletTimer > shootInterval) {
-			bulletTimer = timer;
+		if (Timer - bulletTimer > shootInterval) {
+			bulletTimer = Timer;
 			bulletList.push_back(new Sprite("assets/splashbullet.png"));
 			bulletList.back()->setPos(Player->getPos().x + 15.0f * shootHoleIsLeft, Player->getPos().y-20.0f);
 			Player->setVelo(Player->getVelo().x + 500.0f * -shootHoleIsLeft, Player->getVelo().y +20.0f);

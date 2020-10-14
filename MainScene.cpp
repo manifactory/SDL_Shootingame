@@ -3,6 +3,8 @@
 #include "GameScene.h"
 
 
+float btn_move_timer = Timer;
+bool isMoveLeft = true;
 
 MainScene::MainScene()
 {
@@ -12,7 +14,7 @@ MainScene::MainScene()
 	PlayButton->AddFrame("assets/P_button1.png");
 	PlayButton->isPlay = false;
 	PlayButton->setSIzeMul(10.0f);
-	PlayButton->setPos(WindowWidth / 2, WindowHeight / 2);
+	PlayButton->setPos(WindowWidth / 2 - 300.0f, WindowHeight / 2);
 }
 
 MainScene::~MainScene()
@@ -22,6 +24,22 @@ MainScene::~MainScene()
 
 void MainScene::Update()
 {
+	if (Timer - btn_move_timer > 1.0f)
+	{
+		std::cout << "X : " << PlayButton->getPos().x << std::endl;
+		if (isMoveLeft)
+		{
+			PlayButton->setVelo(1000.0f, 0.0f);
+		}
+		else
+		{
+			PlayButton->setVelo(-1000.0f, 0.0f);
+		}
+		isMoveLeft = !isMoveLeft;
+		btn_move_timer = Timer;
+	}
+	PlayButton->setVelo(PlayButton->Lerp(PlayButton->getVelo(), { 0.0f, 0.0f }, DeltaTime));
+
 	PlayButton->Update();
 
 	PlayButton->SetFrame(0);

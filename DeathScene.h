@@ -3,5 +3,10 @@
 class DeathScene :
 	public Scene
 {
+public:
+	DeathScene();
+	~DeathScene();
+	void Update();
+	void Render();
 };
 

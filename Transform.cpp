@@ -98,3 +98,8 @@ float Transform::Lerp(float value1, float value2, float amount)
 {
 	return float(value1 + ((float)(value2 - value1) * amount));
 }
+
+SDL_FPoint Transform::Lerp(SDL_FPoint point1, SDL_FPoint point2, float amount)
+{
+	return { float(point1.x + ((float)(point2.x - point1.x) * amount)) , float(point1.y + ((float)(point2.y - point1.y) * amount)) };
+}

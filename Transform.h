@@ -34,5 +34,6 @@ public:
 	SDL_FPoint getSIzeMul();
 
 	float Lerp(float value1, float value2, float amount);
+	SDL_FPoint Lerp(SDL_FPoint point1, SDL_FPoint point2, float amount);
 };
 
