@@ -26,7 +26,7 @@ void SceneManager::Render()
 void SceneManager::ChangeScene(Scene* scene)
 {
 	if (currentScene)
-		delete(currentScene);
+		currentScene->~Scene();
 	currentScene = nullptr;
 
 	currentScene = scene;

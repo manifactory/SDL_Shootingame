@@ -36,7 +36,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 		if (window)
 		{
-			std::cout << "Window created" << std::endl;
+			int w, h;
+			std::cout << "Window created";
+			SDL_GetWindowSize(window, &w, &h);
+			std::cout << '(' << w << ',' << h << ')' << std::endl;
 		}
 
 		renderer = SDL_CreateRenderer(window, -1, 0);
@@ -55,9 +58,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	inputManager = new InputManager(&Game::event);
 	sceneManager = new SceneManager();
 
-	mainScene = new MainScene();
-
-	sceneManager->ChangeScene(mainScene);
+	sceneManager->ChangeScene(new MainScene());
 }
 
 void Game::handleEvents()
@@ -72,12 +73,12 @@ void Game::handleEvents()
 		break;
 	}
 
-	inputManager->keyEventUpdate();
+	inputManager->updateKeyEvent();
 }
 
 void Game::update()
 {
-	inputManager->keyStateUpdate();
+	inputManager->updateKeyState();
 	sceneManager->Update();
 }
 

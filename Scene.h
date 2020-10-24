@@ -8,7 +8,7 @@ class Scene
 public:
 
 	Scene();
-	~Scene();
+	virtual ~Scene();
 
 	virtual void Update();
 	virtual void Render();

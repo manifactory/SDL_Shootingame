@@ -3,6 +3,7 @@
 
 DeathScene::DeathScene()
 {
+
 }
 
 DeathScene::~DeathScene()

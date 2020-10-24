@@ -1,14 +1,16 @@
 #pragma once
 #include "Scene.h"
 #include "Animation.h"
+#include "GUI.h"
 
 class MainScene :
 	public Scene
 {
 private:
+	float btn_move_timer;
+	bool isMoveLeft;
 	Sprite* Title;
-	Animation* PlayButton;
-	Sprite* SettingButton;
+	Button* PlayButton;
 public:
 	MainScene();
 	~MainScene();

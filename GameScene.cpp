@@ -1,23 +1,8 @@
 #include "stdafx.h"
 #include "GameScene.h"
+#include "MainScene.h"
 #include <Windows.h>
 
-Sprite* Player;
-
-Audio* bgm;
-Audio* shoot_sound;
-Audio* hit_sound;
-Audio* Explosion_sound;
-
-int shootHoleIsLeft = 1;
-
-float moveSpeed = 5000.0f;
-float moveDrag = 5.0f;
-
-float shootInterval = 0.02f;
-float bulletSpeed = 2000.0f;
-
-float obstacleInterval = 0.1f;
 
 GameScene::GameScene()
 {
@@ -26,23 +11,33 @@ GameScene::GameScene()
 
 	Player = new Sprite("assets/player.png");
 	Player->setPos(WindowWidth/2,WindowHeight/2);
-	Player->setSize(Player->getSize().x*0.06f, Player->getSize().y*0.06f);
+	Player->setSIzeMul(2.0f);
 
-	bgm = new Audio("assets/Taishi - Reverie for Another Sphere.ogg", true, 2048);
+	Scope = new Sprite();
+
+	bgm = new Audio("assets/bgm.ogg", true, 2048);
 	bgm->Play();
 
 	shoot_sound = new Audio("assets/shoot1.wav", false, 2048);
+	shoot_sound->setVolume(10);
 
 	hit_sound = new Audio("assets/hit.wav", false, 2048);
-	hit_sound->setVolume(50);
+	hit_sound->setVolume(15);
 
 	Explosion_sound = new Audio("assets/Explosion.wav", false, 2048);
+	Explosion_sound->setVolume(20);
+
+	asteroid_jump = new Audio("assets/jump.wav", false, 2048);
+	asteroid_jump->setVolume(20);
 }
 
 GameScene::~GameScene()
 {
 	SAFE_DELETE(Player);
 	SAFE_DELETE(bgm);
+	SAFE_DELETE(shoot_sound);
+	SAFE_DELETE(hit_sound);
+	SAFE_DELETE(Explosion_sound);
 
 	for (auto& obstacle : obstacleList) {
 		SAFE_DELETE(obstacle);
@@ -55,7 +50,7 @@ GameScene::~GameScene()
 
 void GameScene::Update()
 {
-
+	/*
 	if (inputManager->getKeyState(SDLK_a) == KEY_ON) {
 		Player->setVelo(Player->getVelo().x - moveSpeed * DeltaTime, Player->getVelo().y);
 	}
@@ -70,50 +65,90 @@ void GameScene::Update()
 	}
 	Player->setVelo(Player->Lerp(Player->getVelo(), {0.0f, 0.0f}, DeltaTime * moveDrag));
 	//std::cout << Player->getVelo().x << ", " << Player->getVelo().y << std::endl;
+	*/
 
-	if (Player->getPos().x + Player->getSize().x/2 > WindowWidth) {
+	if (Player->getPos().x + Player->getRect().w / 2 > WindowWidth) {
 		Player->setVelo(0, Player->getVelo().y);
-		Player->setPos(WindowWidth - Player->getSize().x/2, Player->getPos().y);
+		Player->setPos(WindowWidth - Player->getRect().w / 2, Player->getPos().y);
 	}
-	if (Player->getPos().x - Player->getSize().x / 2 < 0) {
+	else if (Player->getPos().x - Player->getRect().w / 2 < 0) {
 		Player->setVelo(0, Player->getVelo().y);
-		Player->setPos(0+ Player->getSize().x / 2, Player->getPos().y);
+		Player->setPos(0 + Player->getRect().w / 2, Player->getPos().y);
 	}
-	if (Player->getPos().y + Player->getSize().y / 2 > WindowHeight) {
+	else if (Player->getPos().y + Player->getRect().h / 2 > WindowHeight) {
 		Player->setVelo(Player->getVelo().x, 0);
-		Player->setPos(Player->getPos().x, WindowHeight - Player->getSize().y/2);
+		Player->setPos(Player->getPos().x, WindowHeight - Player->getRect().h / 2);
 	}
-	if (Player->getPos().y - Player->getSize().y / 2 < 0) {
+	else if (Player->getPos().y - Player->getRect().h / 2 < 0) {
 		Player->setVelo(Player->getVelo().x, 0);
-		Player->setPos(Player->getPos().x, 0 + Player->getSize().y/2);
+		Player->setPos(Player->getPos().x, 0 + Player->getRect().h / 2);
+	}
+	else
+	{
+		Player->setPos(Player->Lerp(Player->getPos(), {(float)inputManager->getMousePos().x, (float)inputManager->getMousePos().y}, DeltaTime * moveDrag));
 	}
 
+	if (inputManager->getKeyState(SDLK_m) == KEY_DOWN)
+	{
+		bgm->Pause();
+	}
 
 	
 	if (Timer - obstacleTimer > obstacleInterval) {
 		obstacleTimer = Timer;
-		obstacleList.push_back(new Obstacle(0.2f));
-		obstacleList.back()->AddFrame("assets/a.png");
-		obstacleList.back()->AddFrame("assets/b.png");
+		obstacleList.push_back(new Obstacle(0.1f));
+		obstacleList.back()->AddFrame("assets/c.png");
+		obstacleList.back()->AddFrame("assets/d.png");
+		/*if (rand() % 2 - 1)
+		{
+			obstacleList.back()->AddFrame("assets/c.png");
+			obstacleList.back()->AddFrame("assets/d.png");
+		}
+		else
+		{
+			obstacleList.back()->AddFrame("assets/a.png");
+			obstacleList.back()->AddFrame("assets/b.png");
+		}*/
 		obstacleList.back()->isPlay = false;
 		
-		float O_Size = ((float)(rand() % 100)/500.0f + 0.1f);
-		obstacleList.back()->setSIzeMul(O_Size, O_Size);
-		obstacleList.back()->setPos(rand() % WindowWidth, -obstacleList.back()->getSize().y * obstacleList.back()->getSIzeMul().y / 2);
-		obstacleList.back()->setVelo(rand() % 20 - 10 , rand() % 500 + 100);
+		float O_Size = ((float)(rand() % 200)/100.0f + 2.0f);
+		obstacleList.back()->setSIzeMul(O_Size);
+		obstacleList.back()->Update();
+		obstacleList.back()->setHP((int)O_Size * 50);
+		obstacleList.back()->setPos(rand() % WindowWidth, -obstacleList.back()->getRect().h);
+		obstacleList.back()->setVelo(rand() % 40 - 20 , rand() % 500 + 50);
 	}
 
-	if (inputManager->getKeyState(SDLK_SPACE) == KEY_ON) {
+	if (SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(SDL_BUTTON_LEFT)) {
 		if (Timer - bulletTimer > shootInterval) {
 			bulletTimer = Timer;
-			bulletList.push_back(new Sprite("assets/splashbullet.png"));
-			bulletList.back()->setPos(Player->getPos().x + 15.0f * shootHoleIsLeft, Player->getPos().y-20.0f);
-			Player->setVelo(Player->getVelo().x + 500.0f * -shootHoleIsLeft, Player->getVelo().y +20.0f);
+			bulletList.push_back(new Sprite("assets/bullet.png"));
+			bulletList.back()->setSIzeMul(4.0f);
+			bulletList.back()->setPos(Player->getPos().x + ((rand()%100)/10.0f+10.0f) * shootHoleIsLeft, Player->getPos().y- Player->getRect().h/4);
+			bulletList.back()->setVelo(30.0f - 60.0f*shootHoleIsLeft, -bulletSpeed);
+			//Player->setVelo(Player->getVelo().x + 500.0f * -shootHoleIsLeft, Player->getVelo().y +20.0f);
 			shootHoleIsLeft *= -1;
-			bulletList.back()->setVelo(0.0f, -bulletSpeed);
 			shoot_sound->Play();
 		}
 	}
+
+	Player->Update();
+
+	if (bulletList.size() != 0)
+		for (auto iter = bulletList.begin(); iter != bulletList.end(); iter++) {
+			(*iter)->Update();
+
+			if ((*iter)->getPos().y < 0 - (*iter)->getSize().y) {
+
+				SAFE_DELETE(*iter);
+				iter = bulletList.erase(iter);
+
+				if (iter == bulletList.end()) {
+					break;
+				}
+			}
+		}
+
 	if (obstacleList.size() != 0)
 		for (auto iter = obstacleList.begin(); iter != obstacleList.end(); iter++) {
 			(*iter)->Update();
@@ -122,6 +157,7 @@ void GameScene::Update()
 
 				SAFE_DELETE(*iter);
 				iter = obstacleList.erase(iter);
+				asteroid_jump->Play();
 
 			}
 			else if(Player->intersectRect(&(*iter)->getRect())){
@@ -134,22 +170,27 @@ void GameScene::Update()
 			}
 			else {
 				for (auto iter_b = bulletList.begin(); iter_b != bulletList.end(); iter_b++) {
-					if ((*iter)->intersectRect(&(*iter_b)->getRect())) {
+					if ((*iter)->pointInRect(&(*iter_b)->getPos())) {
 
 						(*iter)->SetFrame(1);
 						(*iter)->isPlay = true;
-						(*iter)->setVelo((*iter)->getVelo().x, (*iter)->getVelo().y - 50.0f);
+						(*iter)->getKnockbackBySize();
+						hit_sound->Play();
 						if ((*iter)->getDamage(1)<=0)
 						{
 							Explosion_sound->Play();
 							SAFE_DELETE(*iter);
 							iter = obstacleList.erase(iter);
+
+							if (iter == obstacleList.end())
+								break;
 						}
 
 						SAFE_DELETE(*iter_b);
 						iter_b = bulletList.erase(iter_b);
 
-						break;
+						if (iter_b == bulletList.end())
+							break;
 					}
 				}
 			}
@@ -158,23 +199,11 @@ void GameScene::Update()
 			}
 		}
 
-	if(bulletList.size()!=0)
-		for (auto iter = bulletList.begin(); iter != bulletList.end(); iter++) {
-			(*iter)->Update();
 
-			if ((*iter)->getPos().y < 0 - (*iter)->getSize().y) {
-
-				SAFE_DELETE(*iter);
-				iter=bulletList.erase(iter);
-
-				if (iter == bulletList.end()) {
-					break;
-				}
-			}
-		}
-
-	Player->Update();
-
+	if (inputManager->getKeyState(SDLK_ESCAPE) == KEY_ON)
+	{
+		sceneManager->ChangeScene(new MainScene());
+	}
 }
 
 void GameScene::Render()

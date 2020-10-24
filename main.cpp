@@ -23,6 +23,8 @@ int main(int argc, char* argv[])
 
     Uint8 previous_Event = 0;
 
+
+
 	while (game.running())
 	{
         //SDL_WINDOWEVENT
@@ -107,7 +109,7 @@ int main(int argc, char* argv[])
 		Timer += (float)DeltaTime;
 		if ((Timer - s_Timer) >= 1.0f)
 		{
-			std::cout << "FPS : " << (1.0f / (float)(DeltaTime * 1000))*1000.0f << std::endl;
+			std::cout << "FPS : " << (1.0f / DeltaTime) << std::endl;
 			s_Timer = Timer;
 		}
 

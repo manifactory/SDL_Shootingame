@@ -93,7 +93,7 @@
     <ClCompile Include="Vector2D.cpp">
       <Filter>소스 파일\Engine\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Particle.cpp">
+    <ClCompile Include="GUI.cpp">
       <Filter>소스 파일\Engine\Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -143,7 +143,7 @@
     <ClInclude Include="Vector2D.h">
       <Filter>헤더 파일\Engine\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Particle.h">
+    <ClInclude Include="GUI.h">
       <Filter>헤더 파일\Engine\Object</Filter>
     </ClInclude>
   </ItemGroup>

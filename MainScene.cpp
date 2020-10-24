@@ -3,18 +3,18 @@
 #include "GameScene.h"
 
 
-float btn_move_timer = Timer;
-bool isMoveLeft = true;
+
 
 MainScene::MainScene()
 {
-	PlayButton = new Animation(0.0f);
-	PlayButton->AddFrame("assets/P_button3.png");
-	PlayButton->AddFrame("assets/P_button2.png");
-	PlayButton->AddFrame("assets/P_button1.png");
+	std::string b[3] = { "assets/P_button3.png" , "assets/P_button2.png" , "assets/P_button1.png" };
+	PlayButton = new Button(b, 0.0f);
 	PlayButton->isPlay = false;
 	PlayButton->setSIzeMul(10.0f);
 	PlayButton->setPos(WindowWidth / 2 - 300.0f, WindowHeight / 2);
+
+	btn_move_timer = Timer;
+	isMoveLeft = true;
 }
 
 MainScene::~MainScene()
@@ -39,23 +39,13 @@ void MainScene::Update()
 		btn_move_timer = Timer;
 	}
 	PlayButton->setVelo(PlayButton->Lerp(PlayButton->getVelo(), { 0.0f, 0.0f }, DeltaTime));
-
+	
 	PlayButton->Update();
 
-	PlayButton->SetFrame(0);
-	if (PlayButton->pointInRect(&inputManager->getMousePos()))
+	if (PlayButton->getButtonState())
 	{
-		PlayButton->SetFrame(1);
-		if (inputManager->getEventPoll()->type == SDL_MOUSEBUTTONDOWN)
-		{
-			PlayButton->SetFrame(2);
-		}
-		if (inputManager->getEventPoll()->type == SDL_MOUSEBUTTONUP)
-		{
-			PlayButton->SetFrame(1);
-			SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
-			sceneManager->ChangeScene(new GameScene());
-		}
+		SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
+		sceneManager->ChangeScene(new GameScene());
 	}
 }
 
