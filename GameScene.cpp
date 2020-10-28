@@ -13,7 +13,7 @@ GameScene::GameScene()
 	Player->setPos(WindowWidth/2,WindowHeight/2);
 	Player->setSIzeMul(2.0f);
 
-	Scope = new Sprite();
+	//Scope = new Sprite();
 
 	bgm = new Audio("assets/bgm.ogg", true, 2048);
 	bgm->Play();
