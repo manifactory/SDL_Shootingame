@@ -11,7 +11,7 @@ MainScene::MainScene()
 	std::string b[3] = { "assets/P_button3.png" , "assets/P_button2.png" , "assets/P_button1.png" };
 	PlayButton = new Button(b, 0.0f);
 	PlayButton->isPlay = false;
-	PlayButton->setSIzeMul(10.0f);
+	PlayButton->setSizeMul(10.0f);
 	PlayButton->setPos(WindowWidth / 2 - 500.0f, WindowHeight / 2);
 	PlayButton->setVelo(0.0f, 0.0f);
 

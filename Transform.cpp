@@ -20,6 +20,7 @@ void Transform::update()
 {
 	position.x += ((float)velocity.x * (float)DeltaTime);
 	position.y += ((float)velocity.y * (float)DeltaTime);
+	//add torque, rotation per minuite;
 }
 
 void Transform::setPos(float x, float y)
@@ -75,24 +76,24 @@ SDL_FPoint Transform::getSize()
 	return size;
 }
 
-void Transform::setSIzeMul(float m)
+void Transform::setSizeMul(float m)
 {
 	sizeM.x = m;
 	sizeM.y = m;
 }
 
-void Transform::setSIzeMul(float x, float y)
+void Transform::setSizeMul(float x, float y)
 {
 	sizeM.x = x;
 	sizeM.y = y;
 }
 
-void Transform::setSIzeMul(SDL_FPoint p)
+void Transform::setSizeMul(SDL_FPoint p)
 {
 	sizeM = p;
 }
 
-SDL_FPoint Transform::getSIzeMul()
+SDL_FPoint Transform::getSizeMul()
 {
 	return sizeM;
 }

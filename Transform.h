@@ -32,10 +32,10 @@ public:
 	void setSize(SDL_FPoint p);
 	SDL_FPoint getSize();
 
-	void setSIzeMul(float m);
-	void setSIzeMul(float x, float y);
-	void setSIzeMul(SDL_FPoint p);
-	SDL_FPoint getSIzeMul();
+	void setSizeMul(float m);
+	void setSizeMul(float x, float y);
+	void setSizeMul(SDL_FPoint p);
+	SDL_FPoint getSizeMul();
 
 	void setCenter(float x, float y);
 	void setCenter(SDL_FPoint p);
