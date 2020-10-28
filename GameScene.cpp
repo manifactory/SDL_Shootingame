@@ -13,7 +13,7 @@ GameScene::GameScene()
 	Player->setPos(WindowWidth/2,WindowHeight/2);
 	Player->setSIzeMul(2.0f);
 
-	Scope = new Sprite();
+	//Scope = new Sprite();
 
 	bgm = new Audio("assets/bgm.ogg", true, 2048);
 	bgm->Play();
@@ -153,12 +153,15 @@ void GameScene::Update()
 		for (auto iter = obstacleList.begin(); iter != obstacleList.end(); iter++) {
 			(*iter)->Update();
 
-			if (((*iter)->getPos().y > WindowHeight + (*iter)->getSize().y * (*iter)->getSIzeMul().y) || ((*iter)->getPos().y < - (*iter)->getSize().y * (*iter)->getSIzeMul().y)) {
-
+			if (((*iter)->getPos().y > WindowHeight + (*iter)->getSize().y * (*iter)->getSIzeMul().y)) {
+				SAFE_DELETE(*iter);
+				iter = obstacleList.erase(iter);
+			}
+			if (((*iter)->getPos().y < -(*iter)->getSize().y * (*iter)->getSIzeMul().y))
+			{
 				SAFE_DELETE(*iter);
 				iter = obstacleList.erase(iter);
 				asteroid_jump->Play();
-
 			}
 			else if(Player->intersectRect(&(*iter)->getRect())){
 
