@@ -1,7 +1,7 @@
 #pragma once
 
-#define WindowHeight 720
-#define WindowWidth 1280
+#define WindowHeight 480
+#define WindowWidth 960
 
 #define SAFE_REALEASE(p) {if(p) {p->Release(); (p) = NULL;}}
 #define SAFE_DELETE(p) {if(p) {delete(p); (p) = nullptr;}}

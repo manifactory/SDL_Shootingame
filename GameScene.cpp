@@ -11,7 +11,7 @@ GameScene::GameScene()
 
 	Player = new Sprite("assets/player.png");
 	Player->setPos(WindowWidth/2,WindowHeight/2);
-	Player->setSIzeMul(2.0f);
+	Player->setSizeMul(1.5f);
 
 	//Scope = new Sprite();
 
@@ -38,6 +38,7 @@ GameScene::~GameScene()
 	SAFE_DELETE(shoot_sound);
 	SAFE_DELETE(hit_sound);
 	SAFE_DELETE(Explosion_sound);
+	SAFE_DELETE(asteroid_jump);
 
 	for (auto& obstacle : obstacleList) {
 		SAFE_DELETE(obstacle);
@@ -97,7 +98,7 @@ void GameScene::Update()
 	if (Timer - obstacleTimer > obstacleInterval) {
 		obstacleTimer = Timer;
 		obstacleList.push_back(new Obstacle(0.1f));
-		obstacleList.back()->AddFrame("assets/c.png");
+		obstacleList.back()->AddFrame("assets/a.png");
 		obstacleList.back()->AddFrame("assets/d.png");
 		/*if (rand() % 2 - 1)
 		{
@@ -111,8 +112,8 @@ void GameScene::Update()
 		}*/
 		obstacleList.back()->isPlay = false;
 		
-		float O_Size = ((float)(rand() % 200)/100.0f + 2.0f);
-		obstacleList.back()->setSIzeMul(O_Size);
+		float O_Size = ((float)(rand() % 200)/100.0f + 1.0f);
+		obstacleList.back()->setSizeMul(O_Size);
 		obstacleList.back()->Update();
 		obstacleList.back()->setHP((int)O_Size * 50);
 		obstacleList.back()->setPos(rand() % WindowWidth, -obstacleList.back()->getRect().h);
@@ -123,7 +124,7 @@ void GameScene::Update()
 		if (Timer - bulletTimer > shootInterval) {
 			bulletTimer = Timer;
 			bulletList.push_back(new Sprite("assets/bullet.png"));
-			bulletList.back()->setSIzeMul(4.0f);
+			bulletList.back()->setSizeMul(3.0f);
 			bulletList.back()->setPos(Player->getPos().x + ((rand()%100)/10.0f+10.0f) * shootHoleIsLeft, Player->getPos().y- Player->getRect().h/4);
 			bulletList.back()->setVelo(30.0f - 60.0f*shootHoleIsLeft, -bulletSpeed);
 			//Player->setVelo(Player->getVelo().x + 500.0f * -shootHoleIsLeft, Player->getVelo().y +20.0f);
@@ -136,9 +137,10 @@ void GameScene::Update()
 
 	if (bulletList.size() != 0)
 		for (auto iter = bulletList.begin(); iter != bulletList.end(); iter++) {
+			(*iter)->setVelo((*iter)->getVelo().x, (*iter)->Lerp((*iter)->getVelo().y,0.0f,DeltaTime*10.0f));
 			(*iter)->Update();
 
-			if ((*iter)->getPos().y < 0 - (*iter)->getSize().y) {
+			if ((*iter)->getPos().y < 0 - (*iter)->getSize().y || (*iter)->getVelo().y > -100.0f) {
 
 				SAFE_DELETE(*iter);
 				iter = bulletList.erase(iter);
@@ -151,17 +153,15 @@ void GameScene::Update()
 
 	if (obstacleList.size() != 0)
 		for (auto iter = obstacleList.begin(); iter != obstacleList.end(); iter++) {
+			(*iter)->setAngle((*iter)->getAngle() + 100.0f * DeltaTime);
 			(*iter)->Update();
 
-			if (((*iter)->getPos().y > WindowHeight + (*iter)->getSize().y * (*iter)->getSIzeMul().y)) {
-				SAFE_DELETE(*iter);
-				iter = obstacleList.erase(iter);
-			}
-			if (((*iter)->getPos().y < -(*iter)->getSize().y * (*iter)->getSIzeMul().y))
-			{
+			if (((*iter)->getPos().y > WindowHeight + (*iter)->getSize().y * (*iter)->getSizeMul().y) || ((*iter)->getPos().y < - (*iter)->getSize().y * (*iter)->getSizeMul().y)) {
+
 				SAFE_DELETE(*iter);
 				iter = obstacleList.erase(iter);
 				asteroid_jump->Play();
+
 			}
 			else if(Player->intersectRect(&(*iter)->getRect())){
 

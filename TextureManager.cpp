@@ -10,7 +10,12 @@ SDL_Texture* textureManager::loadTexture(const char* path)
 	return tex;
 }
 
-void textureManager::Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest)
+//void textureManager::Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest)
+//{
+//	SDL_RenderCopy(Game::renderer, tex, &src, &dest);
+//}
+
+void textureManager::Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dest, double angle, SDL_Point center, SDL_RendererFlip flip)
 {
-	SDL_RenderCopy(Game::renderer, tex, &src, &dest);
+	SDL_RenderCopyEx(Game::renderer, tex, &src, &dest, angle, &center, flip);
 }

@@ -11,6 +11,7 @@ private:
 	bool isMoveLeft;
 	Sprite* Title;
 	Button* PlayButton;
+
 public:
 	MainScene();
 	~MainScene();

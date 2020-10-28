@@ -22,15 +22,15 @@ Audio::Audio(const char* path, bool isMusic, int chunkSize)
 	}
 
 	std::cout << path << '\n';
-	if (!isMusic)
+	if (isMusic)
 	{
-		++sound_channel;
-		std::cout << sound_channel << std::endl;
-		this_channel = sound_channel;
+		std::cout << "is Music" << std::endl;
 	}
 	else
 	{
-		std::cout << "is Music" << std::endl;
+		sound_channel++;
+		std::cout << sound_channel << std::endl;
+		this_channel = sound_channel;
 	}
 
 }
@@ -43,7 +43,7 @@ Audio::~Audio()
 	}
 	else {
 		Mix_FreeChunk(wave);
-		--sound_channel;
+		sound_channel--;
 		std::cout << sound_channel << std::endl;
 	}
 
