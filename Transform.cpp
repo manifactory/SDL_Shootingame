@@ -7,6 +7,9 @@ Transform::Transform()
 	velocity.x = velocity.y = 0.0f;
 	size.x = size.y = 0.0f;
 	sizeM.x = sizeM.y = 1.0f;
+	center.x = center.y = 0.0f;
+
+	angle = 0;
 }
 
 Transform::~Transform()
@@ -92,6 +95,33 @@ void Transform::setSIzeMul(SDL_FPoint p)
 SDL_FPoint Transform::getSIzeMul()
 {
 	return sizeM;
+}
+
+void Transform::setCenter(float x, float y)
+{
+	center.x = x;
+	center.y = y;
+}
+
+void Transform::setCenter(SDL_FPoint p)
+{
+	center.x = p.x;
+	center.y = p.y;
+}
+
+SDL_FPoint Transform::getCenter()
+{
+	return center;
+}
+
+void Transform::setAngle(double a)
+{
+	angle = a;
+}
+
+double Transform::getAngle()
+{
+	return angle;
 }
 
 float Transform::Lerp(float value1, float value2, float amount)

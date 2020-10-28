@@ -26,14 +26,25 @@ MainScene::~MainScene()
 
 void MainScene::Update()
 {
+
+	if (inputManager->getKeyState(SDLK_a) == KEY_ON) {
+		PlayButton->setAngle(PlayButton->getAngle() + 100.0f * DeltaTime);
+	}
+	if (inputManager->getKeyState(SDLK_d) == KEY_ON) {
+		PlayButton->setAngle(PlayButton->getAngle() - 100.0f * DeltaTime);
+	}
+	
+
 	if (Timer - btn_move_timer > 1.0f)
 	{
 		std::cout << "X : " << PlayButton->getPos().x << " Y : " << PlayButton->getPos().y << std::endl;
 		isMoveLeft = !isMoveLeft;
 		btn_move_timer = Timer;
 	}
-	PlayButton->setPos(PlayButton->Lerp(PlayButton->getPos(), { (float)WindowWidth / 2 - 500.0f + 1000.0f*(float)isMoveLeft, (float)WindowHeight / 2 }, (float)DeltaTime));
+	PlayButton->setPos(PlayButton->Lerp(PlayButton->getPos(), { (float)WindowWidth / 2 - 500.0f + 1000.0f * (float)isMoveLeft, (float)WindowHeight / 2 }, (float)DeltaTime));
 	
+
+
 	PlayButton->Update();
 
 	if (PlayButton->getButtonState())

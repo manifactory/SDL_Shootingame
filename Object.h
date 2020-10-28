@@ -27,6 +27,8 @@ public:
     bool pointInRect(SDL_FPoint* p);
     bool pointInRect(SDL_Point* p);
 
+
+
     SDL_Rect getRect();
 };
 

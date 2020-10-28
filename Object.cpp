@@ -26,6 +26,8 @@ void Object::Update()
 		this->setVelo(parent->getVelo());
 		this->setSize(parent->getSize());
 		this->setSIzeMul(parent->getSIzeMul());
+		this->setCenter(parent->getCenter());
+		this->setAngle(parent->getAngle());
 	}
 
 	destRect.w = getSize().x * getSIzeMul().x;
@@ -33,6 +35,7 @@ void Object::Update()
 	destRect.x = getPos().x - destRect.w / 2;
 	destRect.y = getPos().y - destRect.h / 2;
 
+	setCenter(destRect.w / 2, destRect.h / 2);
 
 	for (auto& child : childList) {
 		child->Update();
