@@ -10,15 +10,18 @@ Sprite::Sprite(const char* path)
 
 	SDL_QueryTexture(tex, NULL, NULL, &width, &height);
 
-	Transform::setSize((float)width, (float)height);
+	setSize((float)width, (float)height);
 
-	srcRect.w = (float)width;
-	srcRect.h = (float)height;
+	srcRect.w = destRect.w = getSize().x;
+	srcRect.h = destRect.h = getSize().y;
+}
 
-	destRect.w = getSize().x;
-	destRect.h = getSize().y;
+Sprite::Sprite(const char* path, float sizeM) : Sprite(path)
+{
+	setSizeMul(sizeM);
 
-	setCenter(destRect.w / 2, destRect.h / 2);
+	destRect.w = getSize().x * getSizeMul().x;
+	destRect.h = getSize().y * getSizeMul().y;
 }
 
 Sprite::~Sprite()
@@ -37,9 +40,14 @@ SDL_RendererFlip Sprite::getFlip()
 	return flip;
 }
 
+SDL_Texture* Sprite::getTexture()
+{
+	return tex;
+}
+
 
 void Sprite::Render()
 {
 	/*textureManager::Draw(tex, srcRect, destRect);*/
-	textureManager::Draw(tex, srcRect, destRect, getAngle(), { (int)getCenter().x, (int)getCenter().y }, flip);
+	textureManager::Draw(tex, srcRect, destRect, getAngle(), { (int)getCenterByPixel().x, (int)getCenterByPixel().y }, flip);
 }

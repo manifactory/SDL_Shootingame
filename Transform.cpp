@@ -7,7 +7,7 @@ Transform::Transform()
 	velocity.x = velocity.y = 0.0f;
 	size.x = size.y = 0.0f;
 	sizeM.x = sizeM.y = 1.0f;
-	center.x = center.y = 0.0f;
+	center.x = center.y = 0.5f;
 
 	angle = 0;
 }
@@ -113,6 +113,23 @@ void Transform::setCenter(SDL_FPoint p)
 SDL_FPoint Transform::getCenter()
 {
 	return center;
+}
+
+void Transform::setCenterByPixel(float x, float y)
+{
+	center.x = size.x * sizeM.x / x;
+	center.y = size.y * sizeM.y / y;
+}
+
+void Transform::setCenterByPixel(SDL_FPoint p)
+{
+	center.x = size.x * sizeM.x / p.x;
+	center.y = size.y * sizeM.y / p.y;
+}
+
+SDL_FPoint Transform::getCenterByPixel()
+{
+	return { size.x * sizeM.x * center.x, size.y * sizeM.y * center.y };
 }
 
 void Transform::setAngle(double a)

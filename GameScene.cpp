@@ -9,9 +9,8 @@ GameScene::GameScene()
 	srand(GetTickCount());
 	Timer = obstacleTimer = bulletTimer = 0;
 
-	Player = new Sprite("assets/player.png");
+	Player = new Sprite("assets/player.png", 1.5f);
 	Player->setPos(WindowWidth/2,WindowHeight/2);
-	Player->setSizeMul(1.5f);
 
 	//Scope = new Sprite();
 
@@ -51,7 +50,7 @@ GameScene::~GameScene()
 
 void GameScene::Update()
 {
-	/*
+
 	if (inputManager->getKeyState(SDLK_a) == KEY_ON) {
 		Player->setVelo(Player->getVelo().x - moveSpeed * DeltaTime, Player->getVelo().y);
 	}
@@ -66,9 +65,9 @@ void GameScene::Update()
 	}
 	Player->setVelo(Player->Lerp(Player->getVelo(), {0.0f, 0.0f}, DeltaTime * moveDrag));
 	//std::cout << Player->getVelo().x << ", " << Player->getVelo().y << std::endl;
-	*/
+	
 
-	if (Player->getPos().x + Player->getRect().w / 2 > WindowWidth) {
+	/*if (Player->getPos().x + Player->getRect().w / 2 > WindowWidth) {
 		Player->setVelo(0, Player->getVelo().y);
 		Player->setPos(WindowWidth - Player->getRect().w / 2, Player->getPos().y);
 	}
@@ -87,7 +86,9 @@ void GameScene::Update()
 	else
 	{
 		Player->setPos(Player->Lerp(Player->getPos(), {(float)inputManager->getMousePos().x, (float)inputManager->getMousePos().y}, DeltaTime * moveDrag));
-	}
+	}*/
+
+	cameraPos = { Player->getPos().x - WindowWidth / 2,Player->getPos().y - WindowHeight / 2 };
 
 	if (inputManager->getKeyState(SDLK_m) == KEY_DOWN)
 	{
@@ -97,7 +98,7 @@ void GameScene::Update()
 	
 	if (Timer - obstacleTimer > obstacleInterval) {
 		obstacleTimer = Timer;
-		obstacleList.push_back(new Obstacle(0.1f));
+		obstacleList.push_back(new Obstacle(0.3f));
 		obstacleList.back()->AddFrame("assets/a.png");
 		obstacleList.back()->AddFrame("assets/d.png");
 		/*if (rand() % 2 - 1)
@@ -111,8 +112,8 @@ void GameScene::Update()
 			obstacleList.back()->AddFrame("assets/b.png");
 		}*/
 		obstacleList.back()->isPlay = false;
-		
-		float O_Size = ((float)(rand() % 200)/100.0f + 1.0f);
+
+		float O_Size = ((float)(rand() % 200) / 100.0f + 1.0f);
 		obstacleList.back()->setSizeMul(O_Size);
 		obstacleList.back()->Update();
 		obstacleList.back()->setHP((int)O_Size * 50);
@@ -124,9 +125,9 @@ void GameScene::Update()
 		if (Timer - bulletTimer > shootInterval) {
 			bulletTimer = Timer;
 			bulletList.push_back(new Sprite("assets/bullet.png"));
-			bulletList.back()->setSizeMul(3.0f);
+			bulletList.back()->setSizeMul(6.0f);
 			bulletList.back()->setPos(Player->getPos().x + ((rand()%100)/10.0f+10.0f) * shootHoleIsLeft, Player->getPos().y- Player->getRect().h/4);
-			bulletList.back()->setVelo(30.0f - 60.0f*shootHoleIsLeft, -bulletSpeed);
+			bulletList.back()->setVelo(0.0f, -bulletSpeed);
 			//Player->setVelo(Player->getVelo().x + 500.0f * -shootHoleIsLeft, Player->getVelo().y +20.0f);
 			shootHoleIsLeft *= -1;
 			shoot_sound->Play();
@@ -137,7 +138,8 @@ void GameScene::Update()
 
 	if (bulletList.size() != 0)
 		for (auto iter = bulletList.begin(); iter != bulletList.end(); iter++) {
-			(*iter)->setVelo((*iter)->getVelo().x, (*iter)->Lerp((*iter)->getVelo().y,0.0f,DeltaTime*10.0f));
+			(*iter)->setVelo((*iter)->getVelo().x, (*iter)->Lerp((*iter)->getVelo().y, 0.0f, DeltaTime * 7.0f));
+			(*iter)->setSizeMul((*iter)->getSizeMul().x, (*iter)->getVelo().y / -3000.0f * 6.0f);
 			(*iter)->Update();
 
 			if ((*iter)->getPos().y < 0 - (*iter)->getSize().y || (*iter)->getVelo().y > -100.0f) {
@@ -173,7 +175,7 @@ void GameScene::Update()
 			}
 			else {
 				for (auto iter_b = bulletList.begin(); iter_b != bulletList.end(); iter_b++) {
-					if ((*iter)->pointInRect(&(*iter_b)->getPos())) {
+					if ((*iter)->intersectRect(&(*iter_b)->getRect())) {
 
 						(*iter)->SetFrame(1);
 						(*iter)->isPlay = true;
@@ -211,6 +213,7 @@ void GameScene::Update()
 
 void GameScene::Render()
 {
+	SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 	for (auto bullet : bulletList)
 	{
 		bullet->Render();

@@ -19,3 +19,6 @@ extern float Timer;
 
 extern int sound_channel;
 
+extern SDL_FPoint cameraPos;
+extern SDL_Rect windowViewRect;
+

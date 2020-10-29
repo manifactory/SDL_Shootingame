@@ -7,7 +7,6 @@
 
 MainScene::MainScene()
 {
-	SDL_SetRenderDrawColor(Game::renderer, 255, 200, 0, 255);
 	std::string b[3] = { "assets/P_button3.png" , "assets/P_button2.png" , "assets/P_button1.png" };
 	PlayButton = new Button(b, 0.0f);
 	PlayButton->isPlay = false;
@@ -49,12 +48,12 @@ void MainScene::Update()
 
 	if (PlayButton->getButtonState())
 	{
-		SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
 		sceneManager->ChangeScene(new GameScene());
 	}
 }
 
 void MainScene::Render()
 {
+	SDL_SetRenderDrawColor(Game::renderer, 255, 200, 0, 255);
 	PlayButton->Render();
 }

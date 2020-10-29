@@ -61,7 +61,7 @@ private:
 	float moveSpeed = 3000.0f;
 	float moveDrag = 5.0f;
 
-	float shootInterval = 0.01f;
+	float shootInterval = 0.1f;
 	float bulletSpeed = 3000.0f;
 
 	float obstacleInterval = 0.2f;

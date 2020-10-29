@@ -33,10 +33,8 @@ void Object::Update()
 	destRect.w = getSize().x * getSizeMul().x;
 	destRect.h = getSize().y * getSizeMul().y;
 
-	setCenter(destRect.w / 2, destRect.h / 2);
-
-	destRect.x = getPos().x - getCenter().x;
-	destRect.y = getPos().y - getCenter().y;
+	destRect.x = getPos().x - destRect.w * getCenter().x - cameraPos.x;
+	destRect.y = getPos().y - destRect.h * getCenter().y - cameraPos.y;
 
 	for (auto& child : childList) {
 		child->Update();

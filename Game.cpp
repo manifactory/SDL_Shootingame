@@ -14,6 +14,10 @@ Scene* mainScene;
 
 int sound_channel = 0;
 
+SDL_FPoint cameraPos = { 0.0f,0.0f };
+
+SDL_Rect windowViewRect;
+
 Game::Game()
 {}
 Game::~Game()
@@ -59,6 +63,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	sceneManager = new SceneManager();
 
 	sceneManager->ChangeScene(new MainScene());
+
+	windowViewRect.w = WindowWidth;
+	windowViewRect.h = WindowHeight;
 }
 
 void Game::handleEvents()
@@ -78,6 +85,9 @@ void Game::handleEvents()
 
 void Game::update()
 {
+	windowViewRect.x = -(float)cameraPos.x;
+	windowViewRect.y = -(float)cameraPos.y;
+
 	inputManager->updateKeyState();
 	sceneManager->Update();
 }
@@ -85,6 +95,8 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_RenderDrawRect(renderer, &windowViewRect);
 	sceneManager->Render();
 	SDL_RenderPresent(renderer);
 }

@@ -41,6 +41,10 @@ public:
 	void setCenter(SDL_FPoint p);
 	SDL_FPoint getCenter();
 
+	void setCenterByPixel(float x, float y);
+	void setCenterByPixel(SDL_FPoint p);
+	SDL_FPoint getCenterByPixel();
+
 	void setAngle(double a);
 	double getAngle();
 
