@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "textureManager.h"
 
-SDL_Texture* textureManager::loadTexture(const char* path)
+SDL_Texture* textureManager::loadIMGTexture(const char* path)
 {
 	SDL_Surface* tempSurface = IMG_Load(path);
 	SDL_Texture* tex = SDL_CreateTextureFromSurface(Game::renderer, tempSurface);

@@ -31,3 +31,8 @@ void SceneManager::ChangeScene(Scene* scene)
 
 	currentScene = scene;
 }
+
+Scene* SceneManager::getCurrentScene()
+{
+	return currentScene;
+}

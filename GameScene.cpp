@@ -6,6 +6,7 @@
 
 GameScene::GameScene()
 {
+	setBGColor({ 0,0,0,255 });
 	srand(GetTickCount());
 	Timer = obstacleTimer = bulletTimer = 0;
 
@@ -67,7 +68,7 @@ void GameScene::Update()
 	//std::cout << Player->getVelo().x << ", " << Player->getVelo().y << std::endl;
 	
 
-	/*if (Player->getPos().x + Player->getRect().w / 2 > WindowWidth) {
+	if (Player->getPos().x + Player->getRect().w / 2 > WindowWidth) {
 		Player->setVelo(0, Player->getVelo().y);
 		Player->setPos(WindowWidth - Player->getRect().w / 2, Player->getPos().y);
 	}
@@ -83,12 +84,8 @@ void GameScene::Update()
 		Player->setVelo(Player->getVelo().x, 0);
 		Player->setPos(Player->getPos().x, 0 + Player->getRect().h / 2);
 	}
-	else
-	{
-		Player->setPos(Player->Lerp(Player->getPos(), {(float)inputManager->getMousePos().x, (float)inputManager->getMousePos().y}, DeltaTime * moveDrag));
-	}*/
 
-	cameraPos = { Player->getPos().x - WindowWidth / 2,Player->getPos().y - WindowHeight / 2 };
+	cameraPos = { Player->Lerp(cameraPos.x, Player->getPos().x + Player->getVelo().x * 0.2f - WindowWidth / 2,DeltaTime),Player->Lerp(cameraPos.y, Player->getPos().y + Player->getVelo().y * 0.2f - WindowHeight / 2,DeltaTime) };
 
 	if (inputManager->getKeyState(SDLK_m) == KEY_DOWN)
 	{
@@ -116,12 +113,13 @@ void GameScene::Update()
 		float O_Size = ((float)(rand() % 200) / 100.0f + 1.0f);
 		obstacleList.back()->setSizeMul(O_Size);
 		obstacleList.back()->Update();
-		obstacleList.back()->setHP((int)O_Size * 50);
-		obstacleList.back()->setPos(rand() % WindowWidth, -obstacleList.back()->getRect().h);
+		obstacleList.back()->setHP((int)O_Size*5);
+		obstacleList.back()->setPos(rand() % WindowWidth, -obstacleList.back()->getCenterByPixel().x);
 		obstacleList.back()->setVelo(rand() % 40 - 20 , rand() % 500 + 50);
 	}
 
-	if (SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(SDL_BUTTON_LEFT)) {
+	//if (SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(SDL_BUTTON_LEFT)) {
+	if (inputManager->getKeyState(SDLK_SPACE)) {
 		if (Timer - bulletTimer > shootInterval) {
 			bulletTimer = Timer;
 			bulletList.push_back(new Sprite("assets/bullet.png"));
@@ -158,17 +156,21 @@ void GameScene::Update()
 			(*iter)->setAngle((*iter)->getAngle() + 100.0f * DeltaTime);
 			(*iter)->Update();
 
-			if (((*iter)->getPos().y > WindowHeight + (*iter)->getSize().y * (*iter)->getSizeMul().y) || ((*iter)->getPos().y < - (*iter)->getSize().y * (*iter)->getSizeMul().y)) {
+			if (((*iter)->getPos().y - (*iter)->getCenterByPixel().y > WindowHeight + (*iter)->getSize().y * (*iter)->getSizeMul().y)) {
 
 				SAFE_DELETE(*iter);
 				iter = obstacleList.erase(iter);
-				asteroid_jump->Play();
 
+			}
+			if (((*iter)->getPos().y < -(*iter)->getRect().h))
+			{
+				SAFE_DELETE(*iter);
+				iter = obstacleList.erase(iter);
+				asteroid_jump->Play();
 			}
 			else if(Player->intersectRect(&(*iter)->getRect())){
 
 				hit_sound->Play();
-
 				SAFE_DELETE(*iter);
 				iter = obstacleList.erase(iter);
 
@@ -190,6 +192,9 @@ void GameScene::Update()
 							if (iter == obstacleList.end())
 								break;
 						}
+
+						//(*iter_b)->Update();
+						//(*iter_b)->Render();
 
 						SAFE_DELETE(*iter_b);
 						iter_b = bulletList.erase(iter_b);
@@ -213,7 +218,7 @@ void GameScene::Update()
 
 void GameScene::Render()
 {
-	SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
+	Scene::Render();
 	for (auto bullet : bulletList)
 	{
 		bullet->Render();

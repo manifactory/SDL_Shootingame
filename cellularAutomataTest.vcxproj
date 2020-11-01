@@ -175,6 +175,7 @@
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2D.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2D.h" />

@@ -9,6 +9,7 @@ private:
 	SDL_RendererFlip flip;
 
 public:
+	Sprite() {};
 	Sprite(const char* path);
 	Sprite(const char* path, float sizeM);
 	~Sprite();

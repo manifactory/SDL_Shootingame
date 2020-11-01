@@ -13,5 +13,6 @@ public:
 	void Render();
 
 	void ChangeScene(Scene* scene);
+	Scene* getCurrentScene();
 };
 

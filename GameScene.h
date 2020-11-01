@@ -36,7 +36,7 @@ public:
 
 	void getKnockbackBySize()
 	{
-		this->setVelo(this->getVelo().x, this->getVelo().y - (4.0f - this->getSizeMul().x) * 5.0f);
+		this->setVelo(this->getVelo().x, this->getVelo().y - (4.0f - this->getSizeMul().x) * 50.0f);
 	}
 };
 

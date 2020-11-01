@@ -3,7 +3,7 @@
 
 Sprite::Sprite(const char* path)
 {
-	tex = textureManager::loadTexture(path);
+	tex = textureManager::loadIMGTexture(path);
 	flip = SDL_FLIP_NONE;
 
 	int width, height;
@@ -48,6 +48,15 @@ SDL_Texture* Sprite::getTexture()
 
 void Sprite::Render()
 {
+	SDL_Color bgc = sceneManager->getCurrentScene()->getBGColor();
 	/*textureManager::Draw(tex, srcRect, destRect);*/
 	textureManager::Draw(tex, srcRect, destRect, getAngle(), { (int)getCenterByPixel().x, (int)getCenterByPixel().y }, flip);
+	if (visibleRect)
+	{
+		SDL_SetRenderDrawColor(Game::renderer, 255, 0, 0, 255);
+		SDL_RenderDrawRect(Game::renderer, &destRect);
+		SDL_SetRenderDrawColor(Game::renderer, 0, 255, 0, 255);
+		SDL_RenderDrawPointF(Game::renderer, getRect().x + getCenterByPixel().x, getRect().y + getCenterByPixel().y);
+	}
+	SDL_SetRenderDrawColor(Game::renderer, bgc.r, bgc.g, bgc.b, bgc.a);
 }

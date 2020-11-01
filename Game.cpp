@@ -10,13 +10,13 @@ SDL_Event Game::event;
 InputManager* inputManager;
 SceneManager* sceneManager;
 
-Scene* mainScene;
-
 int sound_channel = 0;
 
 SDL_FPoint cameraPos = { 0.0f,0.0f };
 
 SDL_Rect windowViewRect;
+
+bool visibleRect = false;
 
 Game::Game()
 {}
@@ -85,6 +85,9 @@ void Game::handleEvents()
 
 void Game::update()
 {
+	if (event.type == SDL_KEYDOWN)
+		if (event.key.keysym.sym == SDLK_F3)
+			visibleRect = !visibleRect;
 	windowViewRect.x = -(float)cameraPos.x;
 	windowViewRect.y = -(float)cameraPos.y;
 
