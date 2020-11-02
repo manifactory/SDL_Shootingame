@@ -5,13 +5,17 @@
 class Text
 {
 private:
-	std::string* text;
+	const char* text;
 	TTF_Font* font;
+	SDL_Color color;
 
 public:
-	Text();
+	Text(const char* path, int pt);
 	~Text();
 
-	void setText(std::string* t);
+	void setText(const char* t);
+	void setColor(SDL_Color c);
+	void texUpdate();
+	void Render();
 };
 

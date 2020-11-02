@@ -2,6 +2,9 @@
 #include "TextureManager.h"
 #include "Object.h"
 
+#define SPRITE_PATH 1
+#define SPRITE_SURFACE 2
+
 class Sprite :public Object
 {
 private:
@@ -9,8 +12,9 @@ private:
 	SDL_RendererFlip flip;
 
 public:
-	Sprite() {};
+	Sprite();
 	Sprite(const char* path);
+	Sprite(SDL_Surface* tempSurface);
 	Sprite(const char* path, float sizeM);
 	~Sprite();
 

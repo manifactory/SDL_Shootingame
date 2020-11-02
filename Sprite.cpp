@@ -16,6 +16,21 @@ Sprite::Sprite(const char* path)
 	srcRect.h = destRect.h = getSize().y;
 }
 
+Sprite::Sprite(SDL_Surface* tempSurface)
+{
+	tex = SDL_CreateTextureFromSurface(Game::renderer, tempSurface);
+	flip = SDL_FLIP_NONE;
+
+	int width, height;
+
+	SDL_QueryTexture(tex, NULL, NULL, &width, &height);
+
+	setSize((float)width, (float)height);
+
+	srcRect.w = destRect.w = getSize().x;
+	srcRect.h = destRect.h = getSize().y;
+}
+
 Sprite::Sprite(const char* path, float sizeM) : Sprite(path)
 {
 	setSizeMul(sizeM);
