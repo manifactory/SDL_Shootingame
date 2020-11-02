@@ -16,21 +16,23 @@ Text::~Text()
 void Text::setText(const char* t)
 {
 	text = t;
-	
+	texUpdate();
 }
 
 void Text::setColor(SDL_Color c)
 {
 	color = c;
+	texUpdate();
 }
 
 void Text::texUpdate()
 {
 	SDL_Surface* text_surface = TTF_RenderText_Solid(font, text, color);
-	SDL_Texture* tex = SDL_CreateTextureFromSurface(Game::renderer, text_surface);
+	tex = SDL_CreateTextureFromSurface(Game::renderer, text_surface);
+	SDL_FreeSurface(text_surface);
+
 	int width, height;
 	SDL_QueryTexture(tex, NULL, NULL, &width, &height);
-	SDL_Rect src, dest;
 	src, dest = { 0,0,width,height };
 }
 

@@ -9,6 +9,9 @@ private:
 	TTF_Font* font;
 	SDL_Color color;
 
+	SDL_Rect src, dest;
+	SDL_Texture* tex;
+
 public:
 	Text(const char* path, int pt);
 	~Text();
