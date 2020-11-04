@@ -3,6 +3,7 @@
 #include "Audio.h"
 #include <list>
 #include "Animation.h"
+#include "Text.h"
 
 
 class Obstacle :
@@ -49,6 +50,8 @@ private:
 
 	Sprite* Player;
 	Sprite* Scope;
+
+	Text* score;
 
 	Audio* bgm;
 	Audio* shoot_sound;

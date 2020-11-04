@@ -3,8 +3,6 @@
 #include "GameScene.h"
 
 
-
-
 MainScene::MainScene()
 {
 	setBGColor({255,200,0,255});
@@ -18,11 +16,17 @@ MainScene::MainScene()
 
 	btn_move_timer = Timer;
 	isMoveLeft = true;
+
+	Title = new Text("assets/slkscre.ttf", 25);
+	Title->setText("Shooting Game");
+	Title->setPos(WindowWidth / 2, WindowHeight / 2);
+	Title->texUpdate();
 }
 
 MainScene::~MainScene()
 {
 	SAFE_DELETE(PlayButton);
+	SAFE_DELETE(Title);
 }
 
 void MainScene::Update()
@@ -58,4 +62,5 @@ void MainScene::Render()
 {
 	Scene::Render();
 	PlayButton->Render();
+	Title->Render();
 }

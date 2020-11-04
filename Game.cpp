@@ -58,6 +58,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		isRunning = false;
 	}
+
+	if (TTF_Init() == -1)
+	{
+		isRunning = false;
+	}
 	
 	inputManager = new InputManager(&Game::event);
 	sceneManager = new SceneManager();

@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Animation.h"
 #include "GUI.h"
+#include "Text.h"
 
 class MainScene :
 	public Scene
@@ -9,7 +10,7 @@ class MainScene :
 private:
 	float btn_move_timer;
 	bool isMoveLeft;
-	Sprite* Title;
+	Text* Title;
 	Button* PlayButton;
 
 public:
