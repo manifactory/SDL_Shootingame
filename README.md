@@ -1,4 +1,4 @@
-# cellularAutomataTest
+# Dependencies setting
     
  구성 속성\VC++ 디렉터리\일반\포함 디렉터리   
 $(ProjectDir)SDL2-2.0.12\include
