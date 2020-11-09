@@ -1,11 +1,12 @@
 #pragma once
+#include <locale.h>
 #include "SDL_ttf.h"
 #include "TextureManager.h"
 
 class Text
 {
 private:
-	const char* text;
+	const Uint16* text;
 	TTF_Font* font;
 	SDL_Color color;
 
@@ -19,7 +20,7 @@ public:
 	Text(const char* path, int pt);
 	~Text();
 
-	void setText(const char* t);
+	void setText(const wchar_t* t);
 	void setColor(SDL_Color c);
 	void texUpdate();
 

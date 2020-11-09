@@ -3,6 +3,7 @@
 
 Text::Text(const char* path, int pt)
 {
+	setlocale(LC_ALL, "Korean");
 	color = { 0,0,0 };
 	font = TTF_OpenFont(path, pt);
 	if (!font) {
@@ -19,9 +20,19 @@ Text::~Text()
 	SDL_FreeSurface(text_surface);
 }
 
-void Text::setText(const char* t)
+void Text::setText(const wchar_t* t)
 {
-	text = t;
+	if (text)
+	{
+		delete[] text;
+	}
+	int textLenght = wcslen(t);
+	text = new Uint16[textLenght+1];
+	
+	
+
+
+	
 	texUpdate();
 }
 
@@ -35,7 +46,7 @@ void Text::texUpdate()
 {
 	int width, height;
 
-	text_surface = TTF_RenderText_Solid(font, text, color);
+	text_surface = TTF_RenderUNICODE_Solid(font, text, color);
 	tex = SDL_CreateTextureFromSurface(Game::renderer, text_surface);
 
 	SDL_QueryTexture(tex, NULL, NULL, &width, &height);

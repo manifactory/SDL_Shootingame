@@ -18,7 +18,7 @@ MainScene::MainScene()
 	isMoveLeft = true;
 
 	Title = new Text("assets/slkscre.ttf", 25);
-	Title->setText("Shooting Game");
+	Title->setText(L"ÇÑ±Û");
 	Title->setPos(WindowWidth / 2, WindowHeight / 2);
 	Title->texUpdate();
 }
