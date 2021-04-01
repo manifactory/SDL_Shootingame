@@ -64,10 +64,10 @@ void Object::RemoveChild(Object* child)
 }
 
 
-bool Object::intersectRect(SDL_Rect* target)
+bool Object::intersectRect(SDL_Rect target)
 {
 	SDL_Rect r;
-	return SDL_IntersectRect(&this->destRect, target, &r);
+	return SDL_IntersectRect(&this->destRect, &target, &r);
 }
 
 bool Object::pointInRect(SDL_FPoint* p)
@@ -78,9 +78,9 @@ bool Object::pointInRect(SDL_FPoint* p)
 	return SDL_PointInRect(&p1, &this->destRect);
 }
 
-bool Object::pointInRect(SDL_Point* p)
+bool Object::pointInRect(SDL_Point p)
 {
-	return SDL_PointInRect(p, &this->destRect);
+	return SDL_PointInRect(&p, &this->destRect);
 }
 
 SDL_Rect Object::getRect()

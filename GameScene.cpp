@@ -168,7 +168,7 @@ void GameScene::Update()
 				iter = obstacleList.erase(iter);
 				asteroid_jump->Play();
 			}
-			else if(Player->intersectRect(&(*iter)->getRect())){
+			else if(Player->intersectRect((*iter)->getRect())){
 
 				hit_sound->Play();
 				SAFE_DELETE(*iter);
@@ -177,7 +177,7 @@ void GameScene::Update()
 			}
 			else {
 				for (auto iter_b = bulletList.begin(); iter_b != bulletList.end(); iter_b++) {
-					if ((*iter)->intersectRect(&(*iter_b)->getRect())) {
+					if ((*iter)->intersectRect((*iter_b)->getRect())) {
 
 						(*iter)->SetFrame(1);
 						(*iter)->isPlay = true;

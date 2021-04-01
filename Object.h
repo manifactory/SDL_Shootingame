@@ -23,9 +23,9 @@ public:
     void AddChild(Object* child);
     void RemoveChild(Object* child);
 
-    bool intersectRect(SDL_Rect* target);
+    bool intersectRect(SDL_Rect target);
     bool pointInRect(SDL_FPoint* p);
-    bool pointInRect(SDL_Point* p);
+    bool pointInRect(SDL_Point p);
 
 
 

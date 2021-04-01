@@ -22,7 +22,7 @@ void Button::Update()
 	Animation::Update();
 
 	this->SetFrame(Button_Default_Frame);
-	if(this->pointInRect(&inputManager->getMousePos()))
+	if(this->pointInRect(inputManager->getMousePos()))
 	{
 		this->SetFrame(Button_Over_Frame);
 		isClick = false;
