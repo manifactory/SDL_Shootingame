@@ -5,6 +5,7 @@ class SceneManager
 {
 private:
 	Scene* currentScene;
+
 public:
 	SceneManager();
 	~SceneManager();

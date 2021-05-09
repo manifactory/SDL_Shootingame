@@ -7,9 +7,19 @@
 #define SAFE_DELETE(p) {if(p) {delete(p); (p) = nullptr;}}
 #define SAFE_DELETE_ARRAY(p) {if(p) {delete[](p); (p) = nullptr;}}
 
+
+#include<iostream>
+#include "stdafx.h"
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_mixer.h"
+
 #include "InputManager.h"
 #include "TextureManager.h"
 #include "SceneManager.h"
+
+#include "Game.h"
+
 
 extern SceneManager* sceneManager;
 extern InputManager* inputManager;

@@ -8,7 +8,6 @@ private:
 	SDL_Color backgroundColor;
 
 public:
-
 	Scene();
 	virtual ~Scene();
 
